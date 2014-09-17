@@ -8,26 +8,29 @@ import java.util.Map;
 import com.ouss.pokemanual.R;
 import com.ouss.pokemanual.html.HtmlHelper;
 
+import android.graphics.Matrix;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PokeListAdapter extends BaseExpandableListAdapter {
 	private List<String> armTypes;
-    private List<List<List<String>>> arms;
+    private List<List<String>> arms;
+    private HtmlHelper htmlHelper;
+    private HashMap<String, List<String>> iconInfo;
     
-    public PokeListAdapter(){
+    public PokeListAdapter(String response, String pokeInfoStr){
     	super();
-    	
-    	HtmlHelper htmlHelper = new HtmlHelper();
-    	HashMap<String, List<List<String>>> pokeList = htmlHelper.GetPokeList();
-    	
+    	htmlHelper = new HtmlHelper();
+    	iconInfo = htmlHelper.GetPokeIconInfo(pokeInfoStr);
+    	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);
     	armTypes = new ArrayList<String>();
-    	arms = new ArrayList<List<List<String>>>();
+    	arms = new ArrayList<List<String>>();
     	
-    	for(Map.Entry<String, List<List<String>>> entry : pokeList.entrySet()) {
+    	for(Map.Entry<String, List<String>> entry : pokeList.entrySet()) {
     		armTypes.add(entry.getKey());
     		arms.add(entry.getValue());
     	}
@@ -89,9 +92,25 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		// TODO 自动生成的方法存根
+		String[] poke = getChild(groupPosition, childPosition).toString().split(",");
+		
 		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokelist_child, parent, false);
 		TextView textView = (TextView) v.findViewById(R.id.childtext);
-		textView.setText(getChild(groupPosition, childPosition).toString());
+		String show = poke[1].trim();
+		if (!show.equals("null")) {
+			show += "(" + poke[3] + ")";
+		} else {
+			show = poke[3];
+		}
+		textView.setText(show);
+		List<String> sizeInfo = iconInfo.get(poke[0]);
+		if (sizeInfo != null) {
+			ImageView img = (ImageView)v.findViewById(R.id.childimg);
+			Matrix matrix = new Matrix();
+			matrix.postTranslate(Float.parseFloat(sizeInfo.get(0)), Float.parseFloat(sizeInfo.get(1)));
+
+			img.setImageMatrix(matrix);
+		}
         return v;  
 	}
 
