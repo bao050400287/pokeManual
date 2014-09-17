@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 	            	        new Response.Listener<String>() {  
 	            	            @Override  
 	            	            public void onResponse(String response) {
-	            	            	ExpandableListAdapter adapter = new PokeListAdapter(response, pokeIconInfo);
+	            	            	ExpandableListAdapter adapter = new PokeListAdapter(response, pokeIconInfo, MainActivity.this.getResources().getDisplayMetrics().density);
 	            	        		
 	            	        		ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
 	            	                expandableListView.setAdapter(adapter);

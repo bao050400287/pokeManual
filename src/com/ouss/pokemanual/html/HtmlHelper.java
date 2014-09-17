@@ -32,7 +32,6 @@ public class HtmlHelper {
 			
 			if (!matchList.isEmpty()){
 				List<String> groupList;
-				List<String> itemList;
 				for(Map.Entry<String, String> entry : matchList.entrySet()) {
 					groupList = new ArrayList<String>();
 					
@@ -40,14 +39,12 @@ public class HtmlHelper {
 						Pattern regex = Pattern.compile("<tr>\\s*?<td>\\s*?#(\\d+)\\s*?</td>\\s*?<td>\\s*?(<a.+?>\\s*?(.+)\\s*?</a>|(\\[\\[\\]\\]))\\s*?</td>\\s*?<td>\\s*?<a\\s+?href=\"(.+?)\".+?>\\s*?(.+)\\s*?</a>\\s*?</td>\\s*?<td>\\s*?<a.+?>\\s*?(.+)\\s*?</a>\\s*?</td>\\s*?</tr>");
 						Matcher regexMatcher = regex.matcher(entry.getValue());
 						while (regexMatcher.find()) {
-							itemList = new ArrayList<String>();
-							itemList.add(regexMatcher.group(1));
-							itemList.add(regexMatcher.group(3));
-							itemList.add(regexMatcher.group(5));
-							itemList.add(regexMatcher.group(6));
-							itemList.add(regexMatcher.group(7));
 							
-							groupList.add(itemList.toString());
+							groupList.add(regexMatcher.group(1) 
+									+ "," + regexMatcher.group(3) 
+									+ "," + regexMatcher.group(5)
+									+ "," + regexMatcher.group(6) 
+									+ "," + regexMatcher.group(7));
 						}
 						
 						pokeList.put(entry.getKey(), groupList);

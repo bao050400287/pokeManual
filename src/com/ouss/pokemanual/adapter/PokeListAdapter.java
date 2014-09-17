@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.ouss.pokemanual.R;
 import com.ouss.pokemanual.html.HtmlHelper;
+import com.ouss.pokemanual.common.DensityUtil;
 
 import android.graphics.Matrix;
 import android.view.LayoutInflater;
@@ -21,9 +22,11 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
     private List<List<String>> arms;
     private HtmlHelper htmlHelper;
     private HashMap<String, List<String>> iconInfo;
+    private float contextScale;
     
-    public PokeListAdapter(String response, String pokeInfoStr){
+    public PokeListAdapter(String response, String pokeInfoStr, float scale){
     	super();
+    	contextScale = scale;
     	htmlHelper = new HtmlHelper();
     	iconInfo = htmlHelper.GetPokeIconInfo(pokeInfoStr);
     	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);
@@ -107,7 +110,9 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
 		if (sizeInfo != null) {
 			ImageView img = (ImageView)v.findViewById(R.id.childimg);
 			Matrix matrix = new Matrix();
-			matrix.postTranslate(Float.parseFloat(sizeInfo.get(0)), Float.parseFloat(sizeInfo.get(1)));
+			float dx = DensityUtil.dip2px(contextScale, Float.parseFloat(sizeInfo.get(0))) ;
+			float dy = DensityUtil.dip2px(contextScale, Float.parseFloat(sizeInfo.get(1)));
+			matrix.postTranslate(dx, dy);
 
 			img.setImageMatrix(matrix);
 		}
