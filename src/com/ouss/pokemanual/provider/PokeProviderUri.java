@@ -1,13 +1,16 @@
 package com.ouss.pokemanual.provider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class PokeProviderUri {
-	public static final String AUTHORITY  = "com.ouss.pokemanual.provider.PokeProvider";
+	public static final String AUTHORITY  = "com.ouss.pokemanual.provider";
 
 	public static final class Poke implements BaseColumns {
-	    public static final Uri CONTENT_URI  = Uri.parse("content://com.ouss.pokemanual.provider.PokeProvider");
+	    public static final Uri CONTENT_URI  = Uri.parse("content://" + AUTHORITY);
 	       // 表数据列
 	    public static final String pokeID = "pokeID";
 	    
@@ -26,5 +29,16 @@ public class PokeProviderUri {
 	    public static final String dh = "dh";
 	    
 	    public static final String generation = "generation";
+	    
+	    public static final String url = "url";
 	}
+	
+	public static List<String> pokeGroup = new ArrayList<String>() {{
+		add("第一世代");
+		add("第二世代");
+		add("第三世代");
+		add("第四世代");
+		add("第五世代");
+		add("第六世代");
+	}};
 }

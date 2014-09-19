@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.ouss.pokemanual.R;
 import com.ouss.pokemanual.html.HtmlHelper;
+import com.ouss.pokemanual.provider.PokeProviderUri;
 import com.ouss.pokemanual.common.DensityUtil;
 
 import android.content.Context;
@@ -26,9 +27,39 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
     private HashMap<String, List<String>> iconInfo;
     private float contextScale;
     private LayoutInflater mInflater;
+    private List<String> group = new ArrayList<String>();
+    private List<List<PokeItem>> children = new ArrayList<List<PokeItem>>();
+    
+    private class PokeItem {
+    	String id;
+    	String cnName;
+    	String jpName;
+    	String enName;
+    	String url;
+    	float dx;
+    	float dy;
+    }
     
     public PokeListAdapter(Context context, Cursor cursor) {
-    	
+    	for (String groupName :PokeProviderUri.pokeGroup){
+    		group.add(groupName);
+    		children.add(new ArrayList<PokeItem>());
+    	}
+    	PokeItem pokeItem;
+    	int groupIx;
+    	for(cursor.moveToFirst(); ! cursor.isAfterLast(); cursor.moveToNext()){ 
+    		pokeItem = new PokeItem();
+    		groupIx = cursor.getInt(cursor.getColumnIndex(PokeProviderUri.Poke.generation));
+    		pokeItem.id = cursor.getString(cursor.getColumnIndex(PokeProviderUri.Poke.pokeID));
+    		pokeItem.cnName = cursor.getString(cursor.getColumnIndex(PokeProviderUri.Poke.cn));
+    		pokeItem.jpName = cursor.getString(cursor.getColumnIndex(PokeProviderUri.Poke.jp));
+    		pokeItem.enName = cursor.getString(cursor.getColumnIndex(PokeProviderUri.Poke.en));
+    		pokeItem.url = cursor.getString(cursor.getColumnIndex(PokeProviderUri.Poke.url));
+    		pokeItem.dx = cursor.getFloat(cursor.getColumnIndex(PokeProviderUri.Poke.dx));
+    		pokeItem.dy = cursor.getFloat(cursor.getColumnIndex(PokeProviderUri.Poke.dy));
+    		
+    		children.get(groupIx).add(pokeItem);
+    	}
     }
     
     public PokeListAdapter(Context context, String response, String pokeInfoStr){
@@ -50,25 +81,25 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public int getGroupCount() {
 		// TODO 自动生成的方法存根
-		return armTypes.size();
+		return group.size();
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
 		// TODO 自动生成的方法存根
-		return arms.get(groupPosition).size();
+		return children.get(groupPosition).size();
 	}
 
 	@Override
 	public Object getGroup(int groupPosition) {
 		// TODO 自动生成的方法存根
-		return armTypes.get(groupPosition);  
+		return group.get(groupPosition);  
 	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
 		// TODO 自动生成的方法存根
-		return arms.get(groupPosition).get(childPosition);
+		return children.get(groupPosition).get(childPosition);
 	}
 
 	@Override
@@ -98,14 +129,40 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
 		}
 		TextView textView = (TextView) convertView.findViewById(R.id.grouptext);
 		textView.setText(getGroup(groupPosition).toString());
-        return convertView;  
+        return convertView;
 	}
 
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		// TODO 自动生成的方法存根
-		String[] poke = getChild(groupPosition, childPosition).toString().split(",");
+		ViewHolder holder;
+		if (convertView == null) {
+			convertView = mInflater.inflate(R.layout.pokelist_child, parent, false);
+			holder = new ViewHolder();
+			holder.text = (TextView) convertView.findViewById(R.id.childtext);
+			holder.icon = (ImageView) convertView.findViewById(R.id.childimg);
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+		PokeItem pokeItem = (PokeItem)getChild(groupPosition, childPosition);
+		String show = pokeItem.cnName;
+		if (!show.equals("null")) {
+			show += "(" + pokeItem.jpName + ")";
+		} else {
+			show = pokeItem.jpName;
+		}
+		holder.text.setText(show);
+		Matrix matrix = new Matrix();
+		float dx = DensityUtil.dip2px(contextScale, pokeItem.dx) ;
+		float dy = DensityUtil.dip2px(contextScale, pokeItem.dy);
+		matrix.postTranslate(dx, dy);
+
+		holder.icon.setImageMatrix(matrix);
+		
+		return convertView;
+		/*String[] poke = getChild(groupPosition, childPosition).toString().split(",");
 		ViewHolder holder;
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.pokelist_child, parent, false);
@@ -135,7 +192,7 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
 			holder.icon.setImageMatrix(matrix);
 		}
 		
-		return convertView;
+		return convertView;*/
 	}
 	
 	static class ViewHolder {

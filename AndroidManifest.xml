@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <provider android:name=".provider.PokeProvider" android:authorities="com.ouss.pokemanual.provider.PokeProvider" android:exported="false"></provider>
+        <provider android:name=".provider.PokeProvider" android:authorities="com.ouss.pokemanual.provider"></provider>
     </application>
 
 </manifest>

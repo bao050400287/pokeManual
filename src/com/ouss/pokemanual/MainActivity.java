@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
         LoadData();
     }
     
-    private void insertRecords(String pokeID, String cn, String jp, String en, String dx, String dy, String dw, String dh, int generation) {
+    private void insertRecords(String pokeID, String cn, String jp, String en, String dx, String dy, String dw, String dh, int generation, String url) {
     	ContentValues values = new ContentValues();
     	values.put(PokeProviderUri.Poke.pokeID, pokeID);
     	values.put(PokeProviderUri.Poke.cn, cn);
@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
     	values.put(PokeProviderUri.Poke.dw, dw);
     	values.put(PokeProviderUri.Poke.dh, dh);
     	values.put(PokeProviderUri.Poke.generation, generation);
+    	values.put(PokeProviderUri.Poke.url, url);
     	
     	getContentResolver().insert(PokeProviderUri.Poke.CONTENT_URI, values);
     }
@@ -53,7 +54,6 @@ public class MainActivity extends Activity {
     private void LoadData() {
     	Cursor cursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " DESC");
     	if (cursor.getCount() == 0) {
-    		cursor.close();
 	    	StringRequest pokeInfoRequest = new StringRequest(HtmlHelper.pokeIconInfo, 
 	    		new Response.Listener<String>() {  
 		            @Override  
@@ -65,9 +65,26 @@ public class MainActivity extends Activity {
 		            	            	HtmlHelper htmlHelper = new HtmlHelper();
 		            	            	HashMap<String, List<String>> iconInfo = htmlHelper.GetPokeIconInfo(pokeIconInfo);
 		            	            	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);
-		            	            	
+		            	            	List<String> pokeItems;
+		            	            	String[] pokeItem;
 		            	            	for(Map.Entry<String, List<String>> entry : pokeList.entrySet()) {
-		            	            		
+		            	            		pokeItems = entry.getValue();
+		            	            		for(String item  :  pokeItems){
+		            	            			pokeItem = item.split(",");
+		            	            			int gen = PokeProviderUri.pokeGroup.indexOf(entry.getKey());
+		            	            			List<String> sizeInfo = iconInfo.get(pokeItem[0]);
+		            	            			
+		            	            			insertRecords(pokeItem[0], 
+		            	            					pokeItem[1], 
+		            	            					pokeItem[3], 
+		            	            					pokeItem[4], 
+		            	            					sizeInfo.get(0), 
+		            	            					sizeInfo.get(1), 
+		            	            					sizeInfo.get(2), 
+		            	            					sizeInfo.get(3),
+		            	            					gen,
+		            	            					pokeItem[2]);
+		            	            		}
 		            	            	}
 		            	            	
 		            	            	Cursor newCursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " DESC");
@@ -76,6 +93,8 @@ public class MainActivity extends Activity {
 		            	        		
 		            	        		ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
 		            	                expandableListView.setAdapter(adapter);
+		            	                
+		            	                //newCursor.close();
 		            	            }  
 		            	        }, new Response.ErrorListener() {  
 		            	            @Override  
@@ -101,6 +120,7 @@ public class MainActivity extends Activity {
     		ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
             expandableListView.setAdapter(adapter);
     	}
+    	//cursor.close();
     }
 
 

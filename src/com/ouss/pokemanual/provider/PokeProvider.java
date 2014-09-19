@@ -28,7 +28,7 @@ public class PokeProvider extends ContentProvider  {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// TODO 自动生成的方法存根
-			db.execSQL("create table "+ TABLE_NAME +"(pokeID varchar(4) PRIMARY KEY , cn varchar(60), jp varchar(60), en varchar(60), dx FLOAT, dy FLOAT, dw FLOAT, dh FLOAT, generation INTEGER);");
+			db.execSQL("create table "+ TABLE_NAME +"(pokeID varchar(4) PRIMARY KEY , cn varchar(60), jp varchar(60), en varchar(60), dx FLOAT, dy FLOAT, dw FLOAT, dh FLOAT, generation INTEGER, url text);");
 		}
 
 		@Override
