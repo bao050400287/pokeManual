@@ -10,6 +10,7 @@ import com.ouss.pokemanual.html.HtmlHelper;
 import com.ouss.pokemanual.common.DensityUtil;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Matrix;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +27,14 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
     private float contextScale;
     private LayoutInflater mInflater;
     
-    public PokeListAdapter(Context context, String response, String pokeInfoStr, float scale){
+    public PokeListAdapter(Context context, Cursor cursor) {
+    	
+    }
+    
+    public PokeListAdapter(Context context, String response, String pokeInfoStr){
     	super();
     	mInflater = LayoutInflater.from(context);
-    	contextScale = scale;
+    	contextScale = context.getResources().getDisplayMetrics().density;
     	htmlHelper = new HtmlHelper();
     	iconInfo = htmlHelper.GetPokeIconInfo(pokeInfoStr);
     	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);

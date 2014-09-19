@@ -1,5 +1,9 @@
 package com.ouss.pokemanual;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -7,8 +11,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ouss.pokemanual.adapter.PokeListAdapter;
 import com.ouss.pokemanual.html.HtmlHelper;
+import com.ouss.pokemanual.provider.PokeProviderUri;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,38 +35,72 @@ public class MainActivity extends Activity {
         LoadData();
     }
     
+    private void insertRecords(String pokeID, String cn, String jp, String en, String dx, String dy, String dw, String dh, int generation) {
+    	ContentValues values = new ContentValues();
+    	values.put(PokeProviderUri.Poke.pokeID, pokeID);
+    	values.put(PokeProviderUri.Poke.cn, cn);
+    	values.put(PokeProviderUri.Poke.jp, jp);
+    	values.put(PokeProviderUri.Poke.en, en);
+    	values.put(PokeProviderUri.Poke.dx, dx);
+    	values.put(PokeProviderUri.Poke.dy, dy);
+    	values.put(PokeProviderUri.Poke.dw, dw);
+    	values.put(PokeProviderUri.Poke.dh, dh);
+    	values.put(PokeProviderUri.Poke.generation, generation);
+    	
+    	getContentResolver().insert(PokeProviderUri.Poke.CONTENT_URI, values);
+    }
+    
     private void LoadData() {
-    	StringRequest pokeInfoRequest = new StringRequest(HtmlHelper.pokeIconInfo, 
-    		new Response.Listener<String>() {  
-	            @Override  
-	            public void onResponse(final String pokeIconInfo) {
-	            	StringRequest stringRequest = new StringRequest(HtmlHelper.pokeListUrl,  
-	            	        new Response.Listener<String>() {  
-	            	            @Override  
-	            	            public void onResponse(String response) {
-	            	            	ExpandableListAdapter adapter = new PokeListAdapter(MainActivity.this, response, pokeIconInfo, MainActivity.this.getResources().getDisplayMetrics().density);
-	            	        		
-	            	        		ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
-	            	                expandableListView.setAdapter(adapter);
-	            	            }  
-	            	        }, new Response.ErrorListener() {  
-	            	            @Override  
-	            	            public void onErrorResponse(VolleyError error) {  
-	            	                Log.e("TAG", error.getMessage(), error);  
-	            	            }  
-	            	        }
-	                    );  
-	                    mRequestQueue.add(stringRequest);
-	            }  
-	        }, new Response.ErrorListener() {  
-	            @Override  
-	            public void onErrorResponse(VolleyError error) {  
-	                Log.e("TAG", error.getMessage(), error);  
-	            }  
-	        }
-	    );
-        
-        mRequestQueue.add(pokeInfoRequest);
+    	Cursor cursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " DESC");
+    	if (cursor.getCount() == 0) {
+    		cursor.close();
+	    	StringRequest pokeInfoRequest = new StringRequest(HtmlHelper.pokeIconInfo, 
+	    		new Response.Listener<String>() {  
+		            @Override  
+		            public void onResponse(final String pokeIconInfo) {
+		            	StringRequest stringRequest = new StringRequest(HtmlHelper.pokeListUrl,  
+		            	        new Response.Listener<String>() {  
+		            	            @Override  
+		            	            public void onResponse(String response) {
+		            	            	HtmlHelper htmlHelper = new HtmlHelper();
+		            	            	HashMap<String, List<String>> iconInfo = htmlHelper.GetPokeIconInfo(pokeIconInfo);
+		            	            	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);
+		            	            	
+		            	            	for(Map.Entry<String, List<String>> entry : pokeList.entrySet()) {
+		            	            		
+		            	            	}
+		            	            	
+		            	            	Cursor newCursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " DESC");
+		            	            
+		            	            	ExpandableListAdapter adapter = new PokeListAdapter(MainActivity.this, newCursor);
+		            	        		
+		            	        		ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
+		            	                expandableListView.setAdapter(adapter);
+		            	            }  
+		            	        }, new Response.ErrorListener() {  
+		            	            @Override  
+		            	            public void onErrorResponse(VolleyError error) {  
+		            	                Log.e("TAG", error.getMessage(), error);  
+		            	            }  
+		            	        }
+		                    );  
+		                    mRequestQueue.add(stringRequest);
+		            }  
+		        }, new Response.ErrorListener() {  
+		            @Override  
+		            public void onErrorResponse(VolleyError error) {  
+		                Log.e("TAG", error.getMessage(), error);  
+		            }  
+		        }
+		    );
+	        
+	        mRequestQueue.add(pokeInfoRequest);
+    	} else {
+    		ExpandableListAdapter adapter = new PokeListAdapter(MainActivity.this, cursor);
+    		
+    		ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
+            expandableListView.setAdapter(adapter);
+    	}
     }
 
 
