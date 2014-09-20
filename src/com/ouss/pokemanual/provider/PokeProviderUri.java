@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class PokeProviderUri {
-	public static final String AUTHORITY  = "com.ouss.pokemanual.provider";
+	public static final String AUTHORITY  = "com.ouss.pokemanual.pokeprovider";
 
 	public static final class Poke implements BaseColumns {
 	    public static final Uri CONTENT_URI  = Uri.parse("content://" + AUTHORITY);

@@ -18,7 +18,6 @@ public class PokeProvider extends ContentProvider  {
     private static final String DATABASE_NAME = "pokemanual.db";
     private static final int DATABASE_VERSION= 1;
     private static final String TABLE_NAME= "pokeList";
-    private static final String TAG = "PokeProvider";
 	
     private static class DatabaseHelper extends SQLiteOpenHelper {
     	DatabaseHelper(Context context) {
@@ -34,7 +33,8 @@ public class PokeProvider extends ContentProvider  {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO 自动生成的方法存根
-			
+			db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME);
+            onCreate(db);
 		}
     }
     

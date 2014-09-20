@@ -30,17 +30,20 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
     private List<String> group = new ArrayList<String>();
     private List<List<PokeItem>> children = new ArrayList<List<PokeItem>>();
     
-    private class PokeItem {
-    	String id;
-    	String cnName;
-    	String jpName;
-    	String enName;
-    	String url;
-    	float dx;
-    	float dy;
+    public class PokeItem {
+    	public String id;
+    	public String cnName;
+    	public String jpName;
+    	public String enName;
+    	public String url;
+    	public float dx;
+    	public float dy;
     }
     
     public PokeListAdapter(Context context, Cursor cursor) {
+    	super();
+    	mInflater = LayoutInflater.from(context);
+    	contextScale = context.getResources().getDisplayMetrics().density;
     	for (String groupName :PokeProviderUri.pokeGroup){
     		group.add(groupName);
     		children.add(new ArrayList<PokeItem>());
@@ -125,7 +128,7 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
 			View convertView, ViewGroup parent) {
 		// TODO 自动生成的方法存根
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.pokelist_group, parent, false);
+			convertView = mInflater.inflate(R.layout.pokelist_group, null);
 		}
 		TextView textView = (TextView) convertView.findViewById(R.id.grouptext);
 		textView.setText(getGroup(groupPosition).toString());
@@ -138,7 +141,7 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
 		// TODO 自动生成的方法存根
 		ViewHolder holder;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.pokelist_child, parent, false);
+			convertView = mInflater.inflate(R.layout.pokelist_child, null);
 			holder = new ViewHolder();
 			holder.text = (TextView) convertView.findViewById(R.id.childtext);
 			holder.icon = (ImageView) convertView.findViewById(R.id.childimg);
@@ -162,37 +165,6 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
 		holder.icon.setImageMatrix(matrix);
 		
 		return convertView;
-		/*String[] poke = getChild(groupPosition, childPosition).toString().split(",");
-		ViewHolder holder;
-		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.pokelist_child, parent, false);
-			holder = new ViewHolder();
-			holder.text = (TextView) convertView.findViewById(R.id.childtext);
-			holder.icon = (ImageView) convertView.findViewById(R.id.childimg);
-			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
-		}
-		
-		String show = poke[1].trim();
-		if (!show.equals("null")) {
-			show += "(" + poke[3] + ")";
-		} else {
-			show = poke[3];
-		}
-		holder.text.setText(show);
-		
-		List<String> sizeInfo = iconInfo.get(poke[0]);
-		if (sizeInfo != null) {
-			Matrix matrix = new Matrix();
-			float dx = DensityUtil.dip2px(contextScale, Float.parseFloat(sizeInfo.get(0))) ;
-			float dy = DensityUtil.dip2px(contextScale, Float.parseFloat(sizeInfo.get(1)));
-			matrix.postTranslate(dx, dy);
-
-			holder.icon.setImageMatrix(matrix);
-		}
-		
-		return convertView;*/
 	}
 	
 	static class ViewHolder {

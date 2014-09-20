@@ -15,23 +15,27 @@ import com.ouss.pokemanual.provider.PokeProviderUri;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 
 public class MainActivity extends Activity {
 
 	protected RequestQueue mRequestQueue;
-	
+	private ExpandableListView expandableListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRequestQueue = Volley.newRequestQueue(MainActivity.this);
+        expandableListView = (ExpandableListView) findViewById(R.id.list);
         LoadData();
     }
     
@@ -52,8 +56,9 @@ public class MainActivity extends Activity {
     }
     
     private void LoadData() {
-    	Cursor cursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " DESC");
+    	Cursor cursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " ASC");
     	if (cursor.getCount() == 0) {
+    		cursor.close();
 	    	StringRequest pokeInfoRequest = new StringRequest(HtmlHelper.pokeIconInfo, 
 	    		new Response.Listener<String>() {  
 		            @Override  
@@ -87,14 +92,9 @@ public class MainActivity extends Activity {
 		            	            		}
 		            	            	}
 		            	            	
-		            	            	Cursor newCursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " DESC");
-		            	            
-		            	            	ExpandableListAdapter adapter = new PokeListAdapter(MainActivity.this, newCursor);
-		            	        		
-		            	        		ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
-		            	                expandableListView.setAdapter(adapter);
-		            	                
-		            	                //newCursor.close();
+		            	            	Cursor newCursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " ASC");
+
+		            	            	setExpandableList(newCursor);
 		            	            }  
 		            	        }, new Response.ErrorListener() {  
 		            	            @Override  
@@ -115,12 +115,35 @@ public class MainActivity extends Activity {
 	        
 	        mRequestQueue.add(pokeInfoRequest);
     	} else {
-    		ExpandableListAdapter adapter = new PokeListAdapter(MainActivity.this, cursor);
-    		
-    		ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
-            expandableListView.setAdapter(adapter);
+    		setExpandableList(cursor);
+            
     	}
-    	//cursor.close();
+    }
+    
+    private void setExpandableList(Cursor cursor) {
+    	final ExpandableListAdapter adapter = new PokeListAdapter(MainActivity.this, cursor);
+        expandableListView.setAdapter(adapter);
+    	expandableListView.setOnChildClickListener(new OnChildClickListener() {
+
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				// TODO 自动生成的方法存根
+				PokeListAdapter.PokeItem pokeItem  = (PokeListAdapter.PokeItem)adapter.getChild(groupPosition, childPosition);
+				Intent intent =new Intent(MainActivity.this, PokeitemActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("id", pokeItem.id);
+				bundle.putString("name", pokeItem.cnName.equals("null") ? pokeItem.jpName : pokeItem.cnName);
+				bundle.putString("url", pokeItem.url);
+				bundle.putFloat("dx", pokeItem.dx);
+				bundle.putFloat("dy", pokeItem.dy);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				return false;
+			}
+        });
+    	
+    	cursor.close();
     }
 
 
