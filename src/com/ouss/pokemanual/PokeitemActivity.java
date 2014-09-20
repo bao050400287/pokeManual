@@ -1,7 +1,9 @@
 package com.ouss.pokemanual;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 public class PokeitemActivity extends Activity {
@@ -19,5 +21,10 @@ public class PokeitemActivity extends Activity {
 		String url = bundle.getString("url");
 		float dx = bundle.getFloat("dx");
 		float dy = bundle.getFloat("dy");
+		
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(pokeName);
+		Drawable icon;
+		actionBar.setIcon(icon);
 	}
 }
