@@ -1,12 +1,9 @@
 package com.ouss.pokemanual.adapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.ouss.pokemanual.R;
-import com.ouss.pokemanual.html.HtmlHelper;
 import com.ouss.pokemanual.provider.PokeProviderUri;
 import com.ouss.pokemanual.common.DensityUtil;
 
@@ -21,10 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PokeListAdapter extends BaseExpandableListAdapter {
-	private List<String> armTypes;
-    private List<List<String>> arms;
-    private HtmlHelper htmlHelper;
-    private HashMap<String, List<String>> iconInfo;
     private float contextScale;
     private LayoutInflater mInflater;
     private List<String> group = new ArrayList<String>();
@@ -62,22 +55,6 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
     		pokeItem.dy = cursor.getFloat(cursor.getColumnIndex(PokeProviderUri.Poke.dy));
     		
     		children.get(groupIx).add(pokeItem);
-    	}
-    }
-    
-    public PokeListAdapter(Context context, String response, String pokeInfoStr){
-    	super();
-    	mInflater = LayoutInflater.from(context);
-    	contextScale = context.getResources().getDisplayMetrics().density;
-    	htmlHelper = new HtmlHelper();
-    	iconInfo = htmlHelper.GetPokeIconInfo(pokeInfoStr);
-    	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);
-    	armTypes = new ArrayList<String>();
-    	arms = new ArrayList<List<String>>();
-    	
-    	for(Map.Entry<String, List<String>> entry : pokeList.entrySet()) {
-    		armTypes.add(entry.getKey());
-    		arms.add(entry.getValue());
     	}
     }
 	
@@ -158,7 +135,7 @@ public class PokeListAdapter extends BaseExpandableListAdapter {
 		}
 		holder.text.setText(show);
 		Matrix matrix = new Matrix();
-		float dx = DensityUtil.dip2px(contextScale, pokeItem.dx) ;
+		float dx = DensityUtil.dip2px(contextScale, pokeItem.dx);
 		float dy = DensityUtil.dip2px(contextScale, pokeItem.dy);
 		matrix.postTranslate(dx, dy);
 
