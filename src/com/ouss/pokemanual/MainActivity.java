@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.ouss.pokemanual.adapter.PokeListAdapter;
 import com.ouss.pokemanual.html.HtmlHelper;
 import com.ouss.pokemanual.provider.PokeProviderUri;
+import com.ouss.pokemanual.common.SessionManager;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 import android.widget.ExpandableListView.OnChildClickListener;
 
 public class MainActivity extends Activity {
@@ -59,61 +61,58 @@ public class MainActivity extends Activity {
     	Cursor cursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " ASC");
     	if (cursor.getCount() == 0) {
     		cursor.close();
-	    	StringRequest pokeInfoRequest = new StringRequest(HtmlHelper.pokeIconInfo, 
-	    		new Response.Listener<String>() {  
-		            @Override  
-		            public void onResponse(final String pokeIconInfo) {
-		            	StringRequest stringRequest = new StringRequest(HtmlHelper.pokeListUrl,  
-		            	        new Response.Listener<String>() {  
-		            	            @Override  
-		            	            public void onResponse(String response) {
-		            	            	HtmlHelper htmlHelper = new HtmlHelper();
-		            	            	HashMap<String, List<String>> iconInfo = htmlHelper.GetPokeIconInfo(pokeIconInfo);
-		            	            	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);
-		            	            	List<String> pokeItems;
-		            	            	String[] pokeItem;
-		            	            	for(Map.Entry<String, List<String>> entry : pokeList.entrySet()) {
-		            	            		pokeItems = entry.getValue();
-		            	            		for(String item  :  pokeItems){
-		            	            			pokeItem = item.split(",");
-		            	            			int gen = PokeProviderUri.pokeGroup.indexOf(entry.getKey());
-		            	            			List<String> sizeInfo = iconInfo.get(pokeItem[0]);
-		            	            			
-		            	            			insertRecords(pokeItem[0], 
-		            	            					pokeItem[1], 
-		            	            					pokeItem[3], 
-		            	            					pokeItem[4], 
-		            	            					sizeInfo.get(0), 
-		            	            					sizeInfo.get(1), 
-		            	            					sizeInfo.get(2), 
-		            	            					sizeInfo.get(3),
-		            	            					gen,
-		            	            					pokeItem[2]);
-		            	            		}
-		            	            	}
-		            	            	
-		            	            	Cursor newCursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " ASC");
+    		SessionManager.getRequestQueue().add(new StringRequest(HtmlHelper.pokeIconInfo, 
+    	    		new Response.Listener<String>() {  
+	            @Override  
+	            public void onResponse(final String pokeIconInfo) {
+	            	SessionManager.getRequestQueue().add(new StringRequest(HtmlHelper.pokeListUrl,  
+	            	        new Response.Listener<String>() {  
+	            	            @Override  
+	            	            public void onResponse(String response) {
+	            	            	HtmlHelper htmlHelper = new HtmlHelper();
+	            	            	HashMap<String, List<String>> iconInfo = htmlHelper.GetPokeIconInfo(pokeIconInfo);
+	            	            	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);
+	            	            	List<String> pokeItems;
+	            	            	String[] pokeItem;
+	            	            	for(Map.Entry<String, List<String>> entry : pokeList.entrySet()) {
+	            	            		pokeItems = entry.getValue();
+	            	            		for(String item  :  pokeItems){
+	            	            			pokeItem = item.split(",");
+	            	            			int gen = PokeProviderUri.pokeGroup.indexOf(entry.getKey());
+	            	            			List<String> sizeInfo = iconInfo.get(pokeItem[0]);
+	            	            			
+	            	            			insertRecords(pokeItem[0], 
+	            	            					pokeItem[1], 
+	            	            					pokeItem[3], 
+	            	            					pokeItem[4], 
+	            	            					sizeInfo.get(0), 
+	            	            					sizeInfo.get(1), 
+	            	            					sizeInfo.get(2), 
+	            	            					sizeInfo.get(3),
+	            	            					gen,
+	            	            					pokeItem[2]);
+	            	            		}
+	            	            	}
+	            	            	
+	            	            	Cursor newCursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " ASC");
 
-		            	            	setExpandableList(newCursor);
-		            	            }  
-		            	        }, new Response.ErrorListener() {  
-		            	            @Override  
-		            	            public void onErrorResponse(VolleyError error) {  
-		            	                Log.e("TAG", error.getMessage(), error);  
-		            	            }  
-		            	        }
-		                    );  
-		                    mRequestQueue.add(stringRequest);
-		            }  
-		        }, new Response.ErrorListener() {  
-		            @Override  
-		            public void onErrorResponse(VolleyError error) {  
-		                Log.e("TAG", error.getMessage(), error);  
-		            }  
-		        }
-		    );
-	        
-	        mRequestQueue.add(pokeInfoRequest);
+	            	            	setExpandableList(newCursor);
+	            	            }
+	            	}, new Response.ErrorListener() {  
+        	            @Override  
+        	            public void onErrorResponse(VolleyError error) {  
+        	            	Toast.makeText(MainActivity.this, "Õ¯¬Á¥ÌŒÛ,«Î…‘∫Û‘Ÿ ‘",
+       						     Toast.LENGTH_SHORT).show();
+        	            }  
+        	        }));
+	            }
+    		}, new Response.ErrorListener() {
+				@Override
+				public void onErrorResponse(VolleyError error) {
+					Toast.makeText(MainActivity.this, "Õ¯¬Á¥ÌŒÛ,«Î…‘∫Û‘Ÿ ‘",
+						     Toast.LENGTH_SHORT).show();
+				}
+			}));
     	} else {
     		setExpandableList(cursor);
             
