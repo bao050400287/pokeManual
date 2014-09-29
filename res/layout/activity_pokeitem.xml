@@ -4,4 +4,20 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
 
+	<ProgressBar
+	    android:id="@+id/progressBarPokeItem"
+	    style="?android:attr/progressBarStyleLarge"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:layout_centerVertical="true"
+	    android:visibility="gone" />
+	
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/pokeItemView">
+		
+    </LinearLayout>
 </RelativeLayout>
