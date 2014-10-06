@@ -9,6 +9,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import android.widget.Toast;
+
+import com.ouss.pokemanual.PokeitemActivity;
+
 public class HtmlHelper {
 	
 	final static public String pokeListUrl ="http://wiki.52poke.com/wiki/%E7%A5%9E%E5%A5%87%E5%AE%9D%E8%B4%9D%E5%88%97%E8%A1%A8%EF%BC%88%E6%8C%89%E5%85%A8%E5%9B%BD%E5%9B%BE%E9%89%B4%E7%BC%96%E5%8F%B7%EF%BC%89/%E7%AE%80%E5%8D%95%E7%89%88";
@@ -78,5 +82,22 @@ public class HtmlHelper {
 		}
 		
 		return iconInfo;
+	}
+	
+	public static List<String> GetPokeItemInfo (String html) {
+		List<String> info = new ArrayList<String>();
+		try {
+			Pattern regex = Pattern.compile("<table\\s*?class=\"roundy\\s*?bg-(.+?)\\s*?bd?-(.+?)\\s*?align-right\\s*?alignt-center\"\\s*?.+?>[\\s\\S]+?(<img.+?data-srcset=\".+?,\\s+?(.+?)\\s+?.+?\")?[\\s\\S]+?<img.+?data-srcset=\".+?,\\s+?(.+?)\\s+?.+?\"[\\s\\S]+?<a.+?>分类[\\s\\S]+?<td.+?>\\s*(.+?)\\s*</td>[\\s\\S]+?<a.+?>特性[\\s\\S]+?(<table[\\s\\S]+?</table>)[\\s\\S]+?<a.+?title=\"?经验值\"?>[\\s\\S]+?<td.+?>\\s*(.+?)\\s*</td>[\\s\\S]+?<a.+?>身高</a>[\\s\\S]+?<td.+?>\\s*(.+)\\s[\\s\\S]+?<a.+?>体重</a>[\\s\\S]+?<td.+?>\\s*(.+)\\s[\\s\\S]+?<a.+?>体形</a>[\\s\\S]+?<td.+?>.+?<a.+?title=\"(.+?)\".+?<img.+?data-url=\"(.+)\"\\s[\\s\\S]+?脚印[\\s\\S]+?(<img.+?data-url=\"(.+?)\")?[\\s\\S]+?<a.+?>图鉴颜色\\s*</a>[\\s\\S]+?<span.+?color:#(.*?);.+?>\\s*(.+?)\\s*</span>[\\s\\S]+?<a.+?>捕获度</a>[\\s\\S]+?<td.+>\\s*(.+?)<br\\s*/>.+?<span.+?>(.+?)</span>[\\s\\S]+?<a.+?>\\s*性别比例\\s*</a>[\\s\\S]+?<tr[\\s\\S]+?<tr[\\s\\S]+?<td.+?>\\s*(.+?)\\s*</td>[\\s\\S]+?培育\\s*</a>[\\s\\S]+?<td.+?>\\s*(.+?)\\s*</td>\\s*<td.+?>\\s*(\\d+)\\s*[\\s\\S]+?<small>\\((\\d+)[\\s\\S]+?取得基础得点\\s*</a>[\\s\\S]+?<tr>\\s*<td.+?>.+?<br\\s*/>(\\d+)\\s*</td>\\s*<td.+?>.+?<br\\s*/>(\\d+)\\s*</td>\\s*<td.+?>.+?<br\\s*/>(\\d+)\\s*</td>\\s*<td.+?>.+?<br\\s*/>(\\d+)\\s*</td>\\s*<td.+?>.+?<br\\s*/>(\\d+)\\s*</td>\\s*<td.+?>.+?<br\\s*/>(\\d+)\\s*</td>\\s*</tr>\\s*<tr>\\s*.+?</small>\\s*(\\d+)\\s*[\\s\\S]+?</small>\\s*(\\d+)\\s*");
+			Matcher regexMatcher = regex.matcher(html);
+    	 	if (regexMatcher.find()) {
+    	 		for(int i = 1; i<regexMatcher.groupCount(); i++){ 
+    	 			info.add(regexMatcher.group(i));
+    	 		}
+    	 	}
+		} catch (PatternSyntaxException ex) {
+		 	// Syntax error in the regular expression
+		}
+		
+		return info;
 	}
 }

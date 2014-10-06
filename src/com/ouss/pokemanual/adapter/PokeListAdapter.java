@@ -10,6 +10,7 @@ import com.ouss.pokemanual.common.DensityUtil;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Matrix;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

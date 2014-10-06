@@ -11,13 +11,14 @@
 	    android:layout_height="wrap_content"
 	    android:layout_centerHorizontal="true"
 	    android:layout_centerVertical="true"
-	    android:visibility="gone" />
+	    android:visibility="visible" />
 	
 	<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/pokeItemView">
+        android:id="@+id/pokeItemView"
+        android:visibility="gone">
 		
     </LinearLayout>
 </RelativeLayout>

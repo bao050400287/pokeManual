@@ -46,9 +46,14 @@ public class PokeHelper {
 	    }
 	}
 	
-	public PokeColor getPokeColor(String type){
+	public static PokeColor getPokeColor(String type){
+		if (type.equals("∏ÒÙY")){
+			return PokeColor.fighting;
+		} else if (type.equals("ê∫")) {
+			return PokeColor.dark;
+		}
 		for (PokeColor c : PokeColor.values()) {
-            if (c.getName() == type) {
+            if (c.getName().equals(type)) {
                 return c;
             }
         }
