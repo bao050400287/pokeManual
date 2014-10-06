@@ -6,8 +6,11 @@ import java.util.List;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.ouss.pokemanual.common.DensityUtil;
+import com.ouss.pokemanual.common.LruImageCache;
 import com.ouss.pokemanual.common.PokeHelper;
 import com.ouss.pokemanual.common.PokeHelper.PokeColor;
 import com.ouss.pokemanual.common.SessionManager;
@@ -18,14 +21,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.GridLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PokeitemActivity extends Activity {
@@ -36,7 +40,9 @@ public class PokeitemActivity extends Activity {
 	private String pokeName;
 	private String url;
 	private ProgressBar progressBar;
-	private LinearLayout pokeItemLayout;
+	private ScrollView pokeItemLayout;
+	private GridLayout pokeItemGrid;
+	private ImageLoader imageLoader;
 	
 	private static Handler handler = new Handler();
 	
@@ -58,12 +64,15 @@ public class PokeitemActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(pokeName);
 		
-		BitmapDrawable icon = (BitmapDrawable)PokeitemActivity.this.getResources().getDrawable(R.drawable.icon_0721);
+		BitmapDrawable icon = (BitmapDrawable)PokeitemActivity.this.getResources().getDrawable(R.drawable.icon_0721_2x);
 
 		actionBar.setIcon(drawableToBitmap(icon.getBitmap(), (int)Math.abs(dx), (int)Math.abs(dy)));
 
 		progressBar = (ProgressBar)findViewById(R.id.progressBarPokeItem);
-		pokeItemLayout = (LinearLayout)findViewById(R.id.pokeItemView);
+		pokeItemLayout = (ScrollView)findViewById(R.id.pokeItemView);
+		pokeItemGrid = (GridLayout)findViewById(R.id.pokeItemGrid);
+		LruImageCache lruImageCache = LruImageCache.instance();
+		imageLoader = new ImageLoader(SessionManager.getRequestQueue(),lruImageCache);
 		
 		LoadData();
 	}
@@ -79,7 +88,7 @@ public class PokeitemActivity extends Activity {
     	                    	 //do something
     	                    	 Runnable runable;
     	                    	 
-    	                    	 List<String> pokeInfoList = HtmlHelper.GetPokeItemInfo(pokeInfo);
+    	                    	 final List<String> pokeInfoList = HtmlHelper.GetPokeItemInfo(pokeInfo);
     	                    	 if (pokeInfoList.isEmpty()) {
     	                    		 runable = new Runnable() {                    
  	    	                            @Override
@@ -100,8 +109,16 @@ public class PokeitemActivity extends Activity {
     	                    		 runable = new Runnable() {                    
   	    	                            @Override
   	    	                            public void run() {
-  	    	                            	SetViewVisibility(pokeType1.getBgColor(), pokeType2.getBdColor());
+  	    	                            	TextView pokeNameTxt = (TextView)findViewById(R.id.pokeName);
+  	    	                            	pokeNameTxt.setText(pokeName);
   	    	                            	
+  	    	                            	NetworkImageView pokeItemTypeImg = (NetworkImageView) findViewById(R.id.pokeItemTypeImg);
+  	    	                            	pokeItemTypeImg.setDefaultImageResId(R.drawable.ball_load);  
+  	    	                            	pokeItemTypeImg.setErrorImageResId(R.drawable.ball_err);          
+  	    	                            	pokeItemTypeImg.setImageUrl(pokeInfoList.get(3), imageLoader);
+  	    	                            	
+  	    	                            	
+  	    	                            	SetViewVisibility(pokeType1.getBgColor(), pokeType2.getBdColor());
   	    	                            }
       	    	                     };
     	                    	 }
@@ -123,17 +140,17 @@ public class PokeitemActivity extends Activity {
 		progressBar.setVisibility(View.GONE);
     	pokeItemLayout.setVisibility(View.VISIBLE);
     	if (bgColor != 0 &&  bdColor != 0) {
-    		pokeItemLayout.setBackgroundColor(Color.RED);
-    		
+    		pokeItemLayout.setBackgroundColor(getResources().getColor(bdColor));
+    		pokeItemGrid.setBackgroundColor(getResources().getColor(bgColor));
     	}
 	}
 	
 	private Drawable drawableToBitmap(Bitmap drawable, int dx, int dy) {       
         Bitmap bitmap = Bitmap.createBitmap(drawable, 
-        		DensityUtil.dip2px(context, dx),
-        		DensityUtil.dip2px(context, dy),
-        		DensityUtil.dip2px(context, 32),
-        		DensityUtil.dip2px(context, 32));
+        		DensityUtil.dip2px(context, dx*2),
+        		DensityUtil.dip2px(context, dy*2),
+        		DensityUtil.dip2px(context, 64),
+        		DensityUtil.dip2px(context, 64));
         
         bitmap = Bitmap.createScaledBitmap(bitmap, 256, 256, true);
 
