@@ -24,9 +24,34 @@ public class PokeHelper {
 		fairy("妖精", R.color.fairy, R.color.fairy_border);  
 	    // 成员变量  
 	    private String name;
+	    private int bgColor;
+	    private int bdColor;
 	    
 	    private PokeColor(String name, int bgColor, int borderColor) {  
 	        this.name = name;
-	    }  
+	        this.bgColor = bgColor;
+	        this.bdColor = borderColor;
+	    }
+	    
+	    public String getName(){
+	    	return this.name;
+	    }
+	    
+	    public int getBgColor() {
+	    	return this.bgColor;
+	    }
+	    
+	    public int getBdColor(){
+	    	return this.bdColor;
+	    }
+	}
+	
+	public PokeColor getPokeColor(String type){
+		for (PokeColor c : PokeColor.values()) {
+            if (c.getName() == type) {
+                return c;
+            }
+        }
+        return null;
 	}
 }

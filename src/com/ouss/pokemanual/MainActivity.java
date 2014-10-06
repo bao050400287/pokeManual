@@ -19,7 +19,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,13 +29,12 @@ import android.widget.ExpandableListView.OnChildClickListener;
 
 public class MainActivity extends Activity {
 
-	protected RequestQueue mRequestQueue;
 	private ExpandableListView expandableListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRequestQueue = Volley.newRequestQueue(MainActivity.this);
+        SessionManager.context = this;
         expandableListView = (ExpandableListView) findViewById(R.id.list);
         LoadData();
     }

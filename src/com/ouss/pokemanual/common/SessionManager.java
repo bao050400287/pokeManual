@@ -11,8 +11,6 @@ public class SessionManager {
 	public static Context context;
 	private static RequestQueue requestQueue;
 
-	public static boolean isLoggedIn = false;
-
 	
 	public static RequestQueue getRequestQueue() {
 		if (context == null) {
