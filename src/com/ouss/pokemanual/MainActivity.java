@@ -130,7 +130,9 @@ public class MainActivity extends Activity {
 				Intent intent =new Intent(MainActivity.this, PokeitemActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putString("id", pokeItem.id);
-				bundle.putString("name", pokeItem.cnName.equals("null") ? pokeItem.jpName : pokeItem.cnName);
+				bundle.putString("cnName", pokeItem.cnName);
+				bundle.putString("jpName", pokeItem.jpName);
+				bundle.putString("enName", pokeItem.enName);
 				bundle.putString("url", pokeItem.url);
 				bundle.putFloat("dx", pokeItem.dx);
 				bundle.putFloat("dy", pokeItem.dy);

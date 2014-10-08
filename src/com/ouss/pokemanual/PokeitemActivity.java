@@ -26,9 +26,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +38,11 @@ public class PokeitemActivity extends Activity {
 	private Context context;
 	private String pokeId;
 	private String pokeName;
+	private String pokeSubName;
 	private String url;
 	private ProgressBar progressBar;
 	private ScrollView pokeItemLayout;
-	private GridLayout pokeItemGrid;
+	private TableLayout pokeItemGrid;
 	private ImageLoader imageLoader;
 	
 	private static Handler handler = new Handler();
@@ -56,7 +57,13 @@ public class PokeitemActivity extends Activity {
 		Bundle bundle = intent.getExtras();
 		
 		pokeId = bundle.getString("id");
-		pokeName = bundle.getString("name");
+		pokeName = bundle.getString("cnName");
+		pokeSubName = bundle.getString("enName");
+		if (pokeName.equals("null")){
+			pokeName = bundle.getString("jpName");
+		} else {
+			pokeSubName = bundle.getString("jpName") + " " +pokeSubName;
+		}
 		url = "http://wiki.52poke.com" + bundle.getString("url");
 		float dx = bundle.getFloat("dx");
 		float dy = bundle.getFloat("dy");
@@ -70,7 +77,7 @@ public class PokeitemActivity extends Activity {
 
 		progressBar = (ProgressBar)findViewById(R.id.progressBarPokeItem);
 		pokeItemLayout = (ScrollView)findViewById(R.id.pokeItemView);
-		pokeItemGrid = (GridLayout)findViewById(R.id.pokeItemGrid);
+		pokeItemGrid = (TableLayout)findViewById(R.id.pokeItemGrid);
 		LruImageCache lruImageCache = LruImageCache.instance();
 		imageLoader = new ImageLoader(SessionManager.getRequestQueue(),lruImageCache);
 		
@@ -117,6 +124,8 @@ public class PokeitemActivity extends Activity {
   	    	                            	pokeItemTypeImg.setErrorImageResId(R.drawable.ball_err);          
   	    	                            	pokeItemTypeImg.setImageUrl(pokeInfoList.get(3), imageLoader);
   	    	                            	
+  	    	                            	TextView pokeIdTxt = (TextView)findViewById(R.id.pokeIdTxt);
+  	    	                            	pokeIdTxt.setText("#" + pokeId);
   	    	                            	
   	    	                            	SetViewVisibility(pokeType1.getBgColor(), pokeType2.getBdColor());
   	    	                            }

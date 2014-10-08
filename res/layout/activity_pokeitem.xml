@@ -11,38 +11,64 @@
 	    android:layout_height="wrap_content"
 	    android:layout_centerHorizontal="true"
 	    android:layout_centerVertical="true"
-	    android:visibility="gone" />
+	    android:visibility="visible" />
 
 	<ScrollView
 	    android:id="@+id/pokeItemView"
 	    android:padding="5dp"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:visibility="visible" >
+	    android:visibility="gone" >
 
-		<GridLayout
-		    android:id="@+id/pokeItemGrid"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:columnCount="6" 
-		    android:rowCount="12"
-		    android:orientation="horizontal">
+	    <TableLayout
+	        android:id="@+id/pokeItemGrid"
+	        android:stretchColumns="*"
+	        android:layout_height="wrap_content"
+  			android:layout_width="wrap_content"
+  			android:padding="3dp">
 
-			<TextView
-			    android:id="@+id/pokeName"
-			    android:layout_gravity="center_vertical"
-			    android:textAppearance="?android:attr/textAppearanceLarge"
-			    android:layout_columnSpan="4"
-			    android:background="@android:color/white" />
+	        <TableRow
+	            android:id="@+id/tableRow1"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" >
+		       	<TextView
+			        android:id="@+id/pokeName"
+			        android:layout_gravity="center"
+			        android:layout_span="3"
+			        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+			    <com.android.volley.toolbox.NetworkImageView
+			        android:id="@+id/pokeItemTypeImg"
+			        android:layout_width="20dp"
+			        android:layout_height="20dp"
+			        android:layout_gravity="center" >
+			    </com.android.volley.toolbox.NetworkImageView>
+	
+			    <TextView
+			        android:id="@+id/pokeIdTxt"
+			        android:layout_gravity="center"
+			        android:layout_span="2"
+			        android:textAppearance="?android:attr/textAppearanceLarge" />
+	        </TableRow>
 
-			<com.android.volley.toolbox.NetworkImageView  
-		        android:id="@+id/pokeItemTypeImg"
-		        android:layout_gravity="center_vertical"
-		        android:layout_width="wrap_content"  
-		        android:layout_height="wrap_content" >  
-		    </com.android.volley.toolbox.NetworkImageView>  
-			
-		</GridLayout>
+	        <TableRow
+	            android:id="@+id/tableRow2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	        </TableRow>
+
+	        <TableRow
+	            android:id="@+id/tableRow3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	        </TableRow>
+
+	        <TableRow
+	            android:id="@+id/tableRow4"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	        </TableRow>
+	    </TableLayout>
 	    
 	</ScrollView>
 </RelativeLayout>
