@@ -26,6 +26,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -108,10 +109,13 @@ public class PokeitemActivity extends Activity {
     	                    	 } else {
     	                    		 final PokeColor pokeType1 = PokeHelper.getPokeColor(pokeInfoList.get(0));
     	                    		 final PokeColor pokeType2;
+    	                    		 final String pokeStrType;
     	                    		 if (pokeInfoList.get(0).equals(pokeInfoList.get(1))){
     	                    			 pokeType2 = pokeType1;
+    	                    			 pokeStrType = pokeInfoList.get(0);
     	                    		 } else {
     	                    			 pokeType2 = PokeHelper.getPokeColor(pokeInfoList.get(1));
+    	                    			 pokeStrType = pokeInfoList.get(0) + " " + pokeInfoList.get(1);
     	                    		 }
     	                    		 runable = new Runnable() {                    
   	    	                            @Override
@@ -120,12 +124,28 @@ public class PokeitemActivity extends Activity {
   	    	                            	pokeNameTxt.setText(pokeName);
   	    	                            	
   	    	                            	NetworkImageView pokeItemTypeImg = (NetworkImageView) findViewById(R.id.pokeItemTypeImg);
-  	    	                            	pokeItemTypeImg.setDefaultImageResId(R.drawable.ball_load);  
-  	    	                            	pokeItemTypeImg.setErrorImageResId(R.drawable.ball_err);          
-  	    	                            	pokeItemTypeImg.setImageUrl(pokeInfoList.get(3), imageLoader);
+  	    	                            	SetVolleyImage(pokeItemTypeImg, pokeInfoList.get(3));
   	    	                            	
   	    	                            	TextView pokeIdTxt = (TextView)findViewById(R.id.pokeIdTxt);
   	    	                            	pokeIdTxt.setText("#" + pokeId);
+  	    	                            	
+  	    	                            	TextView pokeNameJp = (TextView)findViewById(R.id.pokeNameJp);
+  	    	                            	pokeNameJp.setText(pokeSubName);
+  	    	                            	
+  	    	                            	NetworkImageView pokeItemImg = (NetworkImageView) findViewById(R.id.pokeItemImg);
+  	    	                            	LayoutParams lp = (LayoutParams)pokeItemImg.getLayoutParams();
+  	    	                            	lp.height = lp.width;
+  	    	                            	pokeItemImg.setLayoutParams(lp);
+  	    	                            	SetVolleyImage(pokeItemImg, pokeInfoList.get(4));
+  	    	                            	
+  	    	                            	TextView pokeStrTypeTxt = (TextView)findViewById(R.id.pokeStrTypeTxt);
+  	    	                            	pokeStrTypeTxt.setText(pokeStrType);
+  	    	                            	
+  	    	                            	TextView pokeClassifyTxt = (TextView)findViewById(R.id.pokeClassifyTxt);
+  	    	                            	pokeClassifyTxt.setText(pokeInfoList.get(5));
+  	    	                            	
+  	    	                            	TextView pokeLevelExpTxt = (TextView)findViewById(R.id.pokeLevelExpTxt);
+  	    	                            	pokeLevelExpTxt.setText(pokeInfoList.get(7));
   	    	                            	
   	    	                            	SetViewVisibility(pokeType1.getBgColor(), pokeType2.getBdColor());
   	    	                            }
@@ -152,6 +172,12 @@ public class PokeitemActivity extends Activity {
     		pokeItemLayout.setBackgroundColor(getResources().getColor(bdColor));
     		pokeItemGrid.setBackgroundColor(getResources().getColor(bgColor));
     	}
+	}
+	
+	private void SetVolleyImage(NetworkImageView img, String url){
+		img.setDefaultImageResId(R.drawable.ball_load);  
+		img.setErrorImageResId(R.drawable.ball_err);          
+		img.setImageUrl(url, imageLoader);
 	}
 	
 	private Drawable drawableToBitmap(Bitmap drawable, int dx, int dy) {       
