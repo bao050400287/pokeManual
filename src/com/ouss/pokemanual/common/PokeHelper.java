@@ -59,4 +59,13 @@ public class PokeHelper {
         }
         return null;
 	}
+	
+	public static String ChangeColor(String strColor){
+		String resultString = "#" + strColor;
+		if (strColor.length() == 3) {
+			resultString = "#" + strColor.replaceAll("(.)(.)(.)", "$1$1$2$2$3$3");
+		}
+		
+		return resultString;
+	}
 }

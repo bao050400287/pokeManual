@@ -135,8 +135,110 @@
 	        </TableRow>
 
 	        <TableRow
-	            android:layout_width="wrap_content"
+	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content" >
+	            <LinearLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_span="2"
+	                android:orientation="vertical" >
+	                <TextView
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"
+			            android:text="@string/pokeHeight" />
+	                <TextView
+	                    android:id="@+id/pokeHeightTxt"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"  />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_span="2"
+	                android:orientation="vertical" >
+	                <TextView
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"
+			            android:text="@string/pokeWeight" />
+	                <TextView
+	                    android:id="@+id/pokeWeightTxt"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"  />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_span="2"
+	                android:orientation="vertical" >
+	                <TextView
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"
+			            android:text="@string/pokeManualColor" />
+	                <TextView
+	                    android:id="@+id/pokeManualColorTxt"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"  />
+	            </LinearLayout>
+	        </TableRow>
+	        <TableRow
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" >
+	            <LinearLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_span="2"
+	                android:orientation="vertical" >
+	                <TextView
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"
+			            android:text="@string/pokeFit" />
+	                <com.android.volley.toolbox.NetworkImageView
+				        android:id="@+id/pokeFitImg"
+				        android:layout_width="30dp"
+				        android:layout_height="30dp"
+				        android:layout_gravity="center" >
+				    </com.android.volley.toolbox.NetworkImageView>
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_span="2"
+	                android:orientation="vertical" >
+	                <TextView
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"
+			            android:text="@string/pokeFoot" />
+	                <com.android.volley.toolbox.NetworkImageView
+				        android:id="@+id/pokeFootImg"
+				        android:layout_width="16dp"
+				        android:layout_height="16dp"
+				        android:layout_gravity="center" >
+				    </com.android.volley.toolbox.NetworkImageView>
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_span="2"
+	                android:orientation="vertical" >
+	                <TextView
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"
+			            android:text="@string/pokeCatchPre" />
+	                <TextView
+	                    android:id="@+id/pokeCatchPreTxt"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"  />
+	            </LinearLayout>
 	        </TableRow>
 	    </TableLayout>
 	    

@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -146,6 +147,27 @@ public class PokeitemActivity extends Activity {
   	    	                            	
   	    	                            	TextView pokeLevelExpTxt = (TextView)findViewById(R.id.pokeLevelExpTxt);
   	    	                            	pokeLevelExpTxt.setText(pokeInfoList.get(7));
+  	    	                            	
+  	    	                            	TextView pokeHeightTxt = (TextView)findViewById(R.id.pokeHeightTxt);
+  	    	                            	pokeHeightTxt.setText(pokeInfoList.get(8));
+  	    	                            	
+  	    	                            	TextView pokeWeightTxt = (TextView)findViewById(R.id.pokeWeightTxt);
+  	    	                            	pokeWeightTxt.setText(pokeInfoList.get(9));
+  	    	                            	
+  	    	                            	TextView pokeManualColorTxt = (TextView)findViewById(R.id.pokeManualColorTxt);
+  	    	                            	pokeManualColorTxt.setText(pokeInfoList.get(15));
+  	    	                            	if (!pokeInfoList.get(14).equals("null") && !pokeInfoList.get(14).equals("")) {
+  	    	                            		pokeManualColorTxt.setTextColor(Color.parseColor(PokeHelper.ChangeColor(pokeInfoList.get(14))));
+  	    	                            	}
+  	    	                            	
+  	    	                            	NetworkImageView pokeFitImg = (NetworkImageView) findViewById(R.id.pokeFitImg);
+  	    	                            	SetVolleyImage(pokeFitImg, pokeInfoList.get(11));
+  	    	                            	
+  	    	                            	NetworkImageView pokeFootImg = (NetworkImageView) findViewById(R.id.pokeFootImg);
+  	    	                            	SetVolleyImage(pokeFootImg, pokeInfoList.get(13));
+  	    	                            	
+  	    	                            	TextView pokeCatchPreTxt = (TextView)findViewById(R.id.pokeCatchPreTxt);
+  	    	                            	pokeCatchPreTxt.setText(pokeInfoList.get(16) + "\n" + pokeInfoList.get(17));
   	    	                            	
   	    	                            	SetViewVisibility(pokeType1.getBgColor(), pokeType2.getBdColor());
   	    	                            }

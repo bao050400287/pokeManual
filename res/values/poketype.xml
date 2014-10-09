@@ -53,4 +53,22 @@
     
     <color name="fairy">#ee99ac</color>
     <color name="fairy_border">#9b6470</color>
+    
+    <color name="pokeHPBG">#ff5959</color>
+    <color name="pokeHPBD">#a60000</color>
+    
+    <color name="pokeATBG">#f5ac78</color>
+    <color name="pokeATBD">#9c531f</color>
+    
+    <color name="pokeDFBG">#fae078</color>
+    <color name="pokeDFBD">#a1871f</color>
+    
+    <color name="pokeSABG">#9db7f5</color>
+    <color name="pokeSABD">#445e9c</color>
+    
+    <color name="pokeSDBG">#a7db8d</color>
+    <color name="pokeSDBD">#4e8234</color>
+    
+    <color name="pokeSPBG">#fa92b2</color>
+    <color name="pokeSPBD">#a13959</color>
 </resources>
