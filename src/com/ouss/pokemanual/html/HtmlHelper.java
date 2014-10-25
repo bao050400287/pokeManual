@@ -28,6 +28,7 @@ public class HtmlHelper {
 				} 
 			} catch (PatternSyntaxException ex) {
 				// Syntax error in the regular expression
+				return pokeList;
 			}
 			
 			if (!matchList.isEmpty()){
@@ -51,6 +52,7 @@ public class HtmlHelper {
 						
 					} catch (PatternSyntaxException ex) {
 						// Syntax error in the regular expression
+						return pokeList;
 					}
 				}
 			}
@@ -75,6 +77,7 @@ public class HtmlHelper {
 			} 
 		} catch (PatternSyntaxException ex) {
 			// Syntax error in the regular expression
+			return iconInfo;
 		}
 		
 		return iconInfo;
@@ -92,8 +95,41 @@ public class HtmlHelper {
     	 	}
 		} catch (PatternSyntaxException ex) {
 		 	// Syntax error in the regular expression
+			return info;
 		}
 		
 		return info;
+	}
+	
+	public static HashMap<String, Float> GetPokeSexRatio(String html) {
+		HashMap<String, Float> info = new HashMap<String, Float>();
+		try {
+			Pattern regex = Pattern.compile("<span.+?>(.+?)%\\s*(´Æ|ÐÛ)ÐÔ");
+			Matcher regexMatcher = regex.matcher(html);
+			while (regexMatcher.find()) {
+				info.put(regexMatcher.group(2), Float.parseFloat(regexMatcher.group(1)));
+			}
+		} catch (PatternSyntaxException ex) {
+			// Syntax error in the regular expression
+			return info;
+		}
+		
+		return info;
+	}
+	
+	public static String ReplaceHtmlTag(String html) {
+		try {
+			html = html.replaceAll("<.+?>", "");
+		} catch (PatternSyntaxException ex) {
+			// Syntax error in the regular expression
+			return html;
+		} catch (IllegalArgumentException ex) {
+			// Syntax error in the replacement text (unescaped $ signs?)
+			return html;
+		} catch (IndexOutOfBoundsException ex) {
+			// Non-existent backreference used the replacement text
+			return html;
+		}
+		return html;
 	}
 }

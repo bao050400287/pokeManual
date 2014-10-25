@@ -14,4 +14,5 @@
 	<string name="pokeFoot">脚印</string>
 	<string name="pokeManualColor">图鉴颜色</string>
 	<string name="pokeCatchPre">捕获度</string>
+	<string name="pokeBreed">培育</string>
 </resources>

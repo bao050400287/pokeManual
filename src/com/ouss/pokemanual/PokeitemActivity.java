@@ -1,5 +1,6 @@
 package com.ouss.pokemanual;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -28,6 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -143,7 +145,7 @@ public class PokeitemActivity extends Activity {
   	    	                            	pokeStrTypeTxt.setText(pokeStrType);
   	    	                            	
   	    	                            	TextView pokeClassifyTxt = (TextView)findViewById(R.id.pokeClassifyTxt);
-  	    	                            	pokeClassifyTxt.setText(pokeInfoList.get(5));
+  	    	                            	pokeClassifyTxt.setText(HtmlHelper.ReplaceHtmlTag(pokeInfoList.get(5)));
   	    	                            	
   	    	                            	TextView pokeLevelExpTxt = (TextView)findViewById(R.id.pokeLevelExpTxt);
   	    	                            	pokeLevelExpTxt.setText(pokeInfoList.get(7));
@@ -168,6 +170,34 @@ public class PokeitemActivity extends Activity {
   	    	                            	
   	    	                            	TextView pokeCatchPreTxt = (TextView)findViewById(R.id.pokeCatchPreTxt);
   	    	                            	pokeCatchPreTxt.setText(pokeInfoList.get(16) + "\n" + pokeInfoList.get(17));
+  	    	                            	
+  	    	                            	String pokeSexTxtStr = "";
+  	    	                            	if (pokeInfoList.get(18).trim().equals("无性别")){
+  	    	                            		pokeSexTxtStr = "无性别";
+  	    	                            	} else {
+  	    	                            		HashMap<String, Float> pokeSexList = HtmlHelper.GetPokeSexRatio(pokeInfoList.get(18));
+  	    	                            		if (pokeSexList.containsKey("雄")){
+  	    	                            			pokeSexTxtStr += pokeSexList.get("雄") + "% 雄性";
+  	    	                            			TextView pokeMan = (TextView)findViewById(R.id.pokeMan);
+  	    	                            			pokeMan.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, pokeSexList.get("雄"))); 
+  	    	                            		}
+  	    	                            		if (pokeSexList.containsKey("雌")){
+  	    	                            			if(!pokeSexTxtStr.equals("")){
+  	    	                            				pokeSexTxtStr += ",  ";
+  	    	                            			}
+  	    	                            			pokeSexTxtStr += pokeSexList.get("雌") + "% 雌性";
+  	    	                            			TextView pokeWomen = (TextView)findViewById(R.id.pokeWomen);
+  	    	                            			pokeWomen.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, pokeSexList.get("雌"))); 
+  	    	                            		}
+  	    	                            	}
+  	    	                            	TextView pokeSexTxt = (TextView)findViewById(R.id.pokeSexTxt);
+  	    	                            	pokeSexTxt.setText(pokeSexTxtStr);
+  	    	                            	
+  	    	                            	TextView pokeEggType = (TextView)findViewById(R.id.pokeEggType);
+  	    	                            	pokeEggType.setText(HtmlHelper.ReplaceHtmlTag(pokeInfoList.get(19)));
+  	    	                            	
+  	    	                            	TextView pokeBrithFoot = (TextView)findViewById(R.id.pokeBrithFoot);
+  	    	                            	pokeBrithFoot.setText(pokeInfoList.get(20) + "孵化周期 ("+pokeInfoList.get(21)+"步)");
   	    	                            	
   	    	                            	SetViewVisibility(pokeType1.getBgColor(), pokeType2.getBdColor());
   	    	                            }

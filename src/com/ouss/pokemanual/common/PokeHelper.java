@@ -51,13 +51,17 @@ public class PokeHelper {
 			return PokeColor.fighting;
 		} else if (type.equals("ê∫")) {
 			return PokeColor.dark;
+		}else if (type.equals("‰ì")){
+			return PokeColor.steel;
+		}else if (type.equals("”ƒÏ`")){
+			return PokeColor.ghost;
 		}
 		for (PokeColor c : PokeColor.values()) {
             if (c.getName().equals(type)) {
                 return c;
             }
         }
-        return null;
+        return PokeColor.normal;
 	}
 	
 	public static String ChangeColor(String strColor){
