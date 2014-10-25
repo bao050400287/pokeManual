@@ -15,4 +15,11 @@
 	<string name="pokeManualColor">图鉴颜色</string>
 	<string name="pokeCatchPre">捕获度</string>
 	<string name="pokeBreed">培育</string>
+	<string name="pokeGetExp">取得基础得点</string>
+	<string name="pokeHP">HP</string>
+	<string name="pokeAT">攻击</string>
+	<string name="pokeDF">防御</string>
+	<string name="pokeSA">特攻</string>
+	<string name="pokeSD">特防</string>
+	<string name="pokeSP">速度</string>
 </resources>
