@@ -25,6 +25,10 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -199,6 +203,36 @@ public class PokeitemActivity extends Activity {
   	    	                            	TextView pokeBrithFoot = (TextView)findViewById(R.id.pokeBrithFoot);
   	    	                            	pokeBrithFoot.setText(pokeInfoList.get(20) + "孵化周期 ("+pokeInfoList.get(21)+"步)");
   	    	                            	
+  	    	                            	TextView pokeHPExp = (TextView)findViewById(R.id.pokeHPExp);
+  	    	                            	pokeHPExp.setText("HP\n"+pokeInfoList.get(22));
+  	    	                            	SetBackgroundAndborder(R.color.pokeHPBG, R.color.pokeHPBD, (GradientDrawable  )pokeHPExp.getBackground());
+
+  	    	                            	TextView pokeATExp = (TextView)findViewById(R.id.pokeATExp);
+  	    	                            	pokeATExp.setText("攻击\n"+pokeInfoList.get(23));
+  	    	                            	SetBackgroundAndborder(R.color.pokeATBG, R.color.pokeATBD, (GradientDrawable  )pokeATExp.getBackground());
+  	    	                            	
+  	    	                            	TextView pokeDFExp = (TextView)findViewById(R.id.pokeDFExp);
+  	    	                            	pokeDFExp.setText("防御\n"+pokeInfoList.get(24));
+  	    	                            	SetBackgroundAndborder(R.color.pokeDFBG, R.color.pokeDFBD, (GradientDrawable  )pokeDFExp.getBackground());
+  	    	                            	
+  	    	                            	TextView pokeSAExp = (TextView)findViewById(R.id.pokeSAExp);
+  	    	                            	pokeSAExp.setText("特供\n"+pokeInfoList.get(25));
+  	    	                            	SetBackgroundAndborder(R.color.pokeSABG, R.color.pokeSABD, (GradientDrawable  )pokeSAExp.getBackground());
+  	    	                            	
+  	    	                            	TextView pokeSDExp = (TextView)findViewById(R.id.pokeSDExp);
+  	    	                            	pokeSDExp.setText("特防\n"+pokeInfoList.get(26));
+  	    	                            	SetBackgroundAndborder(R.color.pokeSDBG, R.color.pokeSDBD, (GradientDrawable  )pokeSDExp.getBackground());
+  	    	                            	
+  	    	                            	TextView pokeSPExp = (TextView)findViewById(R.id.pokeSPExp);
+  	    	                            	pokeSPExp.setText("速度\n"+pokeInfoList.get(27));
+  	    	                            	SetBackgroundAndborder(R.color.pokeSPBG, R.color.pokeSPBD, (GradientDrawable  )pokeSPExp.getBackground());
+  	    	                            	
+  	    	                            	TextView pokeBaseExp = (TextView)findViewById(R.id.pokeBaseExp);
+  	    	                            	pokeBaseExp.setText("基础经验值："+pokeInfoList.get(28));
+  	    	                            	
+  	    	                            	TextView pokeBtExp = (TextView)findViewById(R.id.pokeBtExp);
+  	    	                            	pokeBtExp.setText("对战经验值："+pokeInfoList.get(29));
+  	    	                            	
   	    	                            	SetViewVisibility(pokeType1.getBgColor(), pokeType2.getBdColor());
   	    	                            }
       	    	                     };
@@ -215,6 +249,11 @@ public class PokeitemActivity extends Activity {
 					     Toast.LENGTH_SHORT).show();
             }  
         }));
+	}
+	
+	private void SetBackgroundAndborder(int bgColor,int bdColor, GradientDrawable  bgShape){
+		bgShape.setColor(getResources().getColor(bgColor));
+		bgShape.setStroke(2, getResources().getColor(bdColor));
 	}
 	
 	private void SetViewVisibility(int bgColor, int bdColor){
