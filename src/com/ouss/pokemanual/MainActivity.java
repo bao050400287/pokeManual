@@ -1,8 +1,12 @@
 package com.ouss.pokemanual;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.http.util.EncodingUtils;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -15,8 +19,10 @@ import com.ouss.pokemanual.common.SessionManager;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,10 +34,14 @@ import android.widget.ExpandableListView.OnChildClickListener;
 public class MainActivity extends Activity {
 
 	private ExpandableListView expandableListView;
+	private static Handler handler = new Handler();
+	private Resources rs;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        rs = getResources();
         SessionManager.context = this;
         expandableListView = (ExpandableListView) findViewById(R.id.list);
         LoadData();
@@ -57,58 +67,73 @@ public class MainActivity extends Activity {
     	Cursor cursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " ASC");
     	if (cursor.getCount() == 0) {
     		cursor.close();
-    		SessionManager.getRequestQueue().add(new StringRequest(HtmlHelper.pokeIconInfo, 
-    	    		new Response.Listener<String>() {  
-	            @Override  
-	            public void onResponse(final String pokeIconInfo) {
-	            	SessionManager.getRequestQueue().add(new StringRequest(HtmlHelper.pokeListUrl,  
-	            	        new Response.Listener<String>() {  
-	            	            @Override  
-	            	            public void onResponse(String response) {
-	            	            	HtmlHelper htmlHelper = new HtmlHelper();
-	            	            	HashMap<String, List<String>> iconInfo = htmlHelper.GetPokeIconInfo(pokeIconInfo);
-	            	            	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);
-	            	            	List<String> pokeItems;
-	            	            	String[] pokeItem;
-	            	            	for(Map.Entry<String, List<String>> entry : pokeList.entrySet()) {
-	            	            		pokeItems = entry.getValue();
-	            	            		for(String item  :  pokeItems){
-	            	            			pokeItem = item.split(",");
-	            	            			int gen = PokeProviderUri.pokeGroup.indexOf(entry.getKey());
-	            	            			List<String> sizeInfo = iconInfo.get(pokeItem[0]);
-	            	            			
-	            	            			insertRecords(pokeItem[0], 
-	            	            					pokeItem[1], 
-	            	            					pokeItem[3], 
-	            	            					pokeItem[4], 
-	            	            					sizeInfo.get(0), 
-	            	            					sizeInfo.get(1), 
-	            	            					sizeInfo.get(2), 
-	            	            					sizeInfo.get(3),
-	            	            					gen,
-	            	            					pokeItem[2]);
-	            	            		}
-	            	            	}
-	            	            	
-	            	            	Cursor newCursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " ASC");
-
-	            	            	setExpandableList(newCursor);
-	            	            }
-	            	}, new Response.ErrorListener() {  
+    		SessionManager.getRequestQueue().add(new StringRequest(HtmlHelper.pokeListUrl,  
+        	        new Response.Listener<String>() {  
         	            @Override  
-        	            public void onErrorResponse(VolleyError error) {  
-        	            	Toast.makeText(MainActivity.this, "Õ¯¬Á¥ÌŒÛ,«Î…‘∫Û‘Ÿ ‘",
-       						     Toast.LENGTH_SHORT).show();
-        	            }  
-        	        }));
-	            }
-    		}, new Response.ErrorListener() {
-				@Override
-				public void onErrorResponse(VolleyError error) {
-					Toast.makeText(MainActivity.this, "Õ¯¬Á¥ÌŒÛ,«Î…‘∫Û‘Ÿ ‘",
+        	            public void onResponse(final String response) {
+        	            	new Thread(new Runnable() {
+    							public void run() {
+    								String pokeIconInfo = "";
+    							    try {
+    							    	InputStream input = rs.openRawResource(R.raw.pokecss);
+        								int length = input.available();         
+        								  
+        							    byte [] buffer = new byte[length];      
+										input.read(buffer);
+										pokeIconInfo = EncodingUtils.getString(buffer, "UTF-8");   
+										input.close();
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+    								
+    								HtmlHelper htmlHelper = new HtmlHelper();
+    	        	            	HashMap<String, List<String>> iconInfo = htmlHelper.GetPokeIconInfo(pokeIconInfo);
+    	        	            	HashMap<String, List<String>> pokeList = htmlHelper.GetPokeList(response);
+    	        	            	List<String> pokeItems;
+    	        	            	String[] pokeItem;
+    	        	            	for(Map.Entry<String, List<String>> entry : pokeList.entrySet()) {
+    	        	            		pokeItems = entry.getValue();
+    	        	            		for(String item  :  pokeItems){
+    	        	            			pokeItem = item.split(",");
+    	        	            			int gen = PokeProviderUri.pokeGroup.indexOf(entry.getKey());
+    	        	            			List<String> sizeInfo = iconInfo.get(pokeItem[0]);
+    	        	            			
+    	        	            			insertRecords(pokeItem[0], 
+    	        	            					pokeItem[1], 
+    	        	            					pokeItem[3], 
+    	        	            					pokeItem[4], 
+    	        	            					sizeInfo.get(0), 
+    	        	            					sizeInfo.get(1), 
+    	        	            					sizeInfo.get(2), 
+    	        	            					sizeInfo.get(3),
+    	        	            					gen,
+    	        	            					pokeItem[2]);
+    	        	            		}
+    	        	            	}
+
+									Runnable runable = new Runnable() {
+										@Override
+										public void run() {
+											Cursor newCursor = getContentResolver().query(PokeProviderUri.Poke.CONTENT_URI, null, null, null, PokeProviderUri.Poke.pokeID + " ASC");
+	
+				        	            	setExpandableList(newCursor);
+										}
+									};
+									handler.post(runable);
+    							}
+        	            	}).start();
+        	            	
+        	            	
+        	            	
+        	            }
+        	}, new Response.ErrorListener() {  
+	            @Override  
+	            public void onErrorResponse(VolleyError error) {  
+	            	Toast.makeText(MainActivity.this, "Õ¯¬Á¥ÌŒÛ,«Î…‘∫Û‘Ÿ ‘",
 						     Toast.LENGTH_SHORT).show();
-				}
-			}));
+	            }  
+	        }));
     	} else {
     		setExpandableList(cursor);
             

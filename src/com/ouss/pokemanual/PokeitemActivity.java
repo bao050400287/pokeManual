@@ -77,7 +77,7 @@ public class PokeitemActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setTitle(pokeName);
 
-		BitmapDrawable icon = (BitmapDrawable) rs.getDrawable(R.drawable.icon_0721_2x);
+		BitmapDrawable icon = (BitmapDrawable) rs.getDrawable(R.drawable.icon_1026);
 
 		actionBar.setIcon(drawableToBitmap(icon.getBitmap(),
 				(int) Math.abs(dx), (int) Math.abs(dy)));
@@ -393,10 +393,10 @@ public class PokeitemActivity extends Activity {
 
 	private Drawable drawableToBitmap(Bitmap drawable, int dx, int dy) {
 		Bitmap bitmap = Bitmap.createBitmap(drawable,
-				DensityUtil.dip2px(context, dx * 2),
-				DensityUtil.dip2px(context, dy * 2),
-				DensityUtil.dip2px(context, 64),
-				DensityUtil.dip2px(context, 64));
+				DensityUtil.dip2px(context, dx),
+				DensityUtil.dip2px(context, dy),
+				DensityUtil.dip2px(context, 40),
+				DensityUtil.dip2px(context, 40));
 
 		bitmap = Bitmap.createScaledBitmap(bitmap, 256, 256, true);
 
