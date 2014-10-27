@@ -21,29 +21,32 @@
 	    android:layout_height="match_parent"
 	    android:visibility="gone" >
 
-	    <TableLayout
-	        android:id="@+id/pokeItemGrid"
-	        android:stretchColumns="*"
-	        android:layout_height="wrap_content"
-  			android:layout_width="wrap_content"
-  			android:padding="3dp">
-
-	        <TableRow
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
-
-	            <LinearLayout
-	                android:layout_width="wrap_content"
+	    <LinearLayout
+            android:id="@+id/pokeItemGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:background="@drawable/poke_item_box" >
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <LinearLayout
+                    android:id="@+id/pokeNameLayout"
+	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
-	                android:layout_span="4"
-	                android:orientation="vertical" >
+	                android:orientation="vertical"
+	                android:layout_weight="5"
+	                android:background="@drawable/poke_item_box" >
 
 	                <TextView
 	                    android:id="@+id/pokeName"
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="wrap_content"
 	                    android:layout_gravity="center"
-	                    android:textAppearance="?android:attr/textAppearanceLarge" />
+	                    android:textAppearance="?android:attr/textAppearanceLarge"
+	                     />
 
 	                <TextView
 	                    android:id="@+id/pokeNameJp"
@@ -53,43 +56,46 @@
 	                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
 	            </LinearLayout>
-		       	
-	
-			    <com.android.volley.toolbox.NetworkImageView
+	            <com.android.volley.toolbox.NetworkImageView
 			        android:id="@+id/pokeItemTypeImg"
 			        android:layout_width="20dp"
 			        android:layout_height="20dp"
-			        android:layout_gravity="center" >
+			        android:layout_gravity="center"
+			        android:layout_weight="1">
 			    </com.android.volley.toolbox.NetworkImageView>
-	
+
 			    <TextView
 			        android:id="@+id/pokeIdTxt"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
 			        android:layout_gravity="center"
-			        android:textAppearance="?android:attr/textAppearanceLarge" />
-	        </TableRow>
+			        android:layout_weight="1"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:background="@drawable/poke_item_box"
+			        android:padding="2dp"
+			        android:gravity="center" />
 
-	        <TableRow
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
-			    <com.android.volley.toolbox.NetworkImageView
-			        android:id="@+id/pokeItemImg"
-			        android:layout_width="300dp"
-			        android:layout_height="300dp"
-			        android:scaleType="centerInside"
-			        android:layout_span="6"
-			        android:layout_gravity="center" >
-			    </com.android.volley.toolbox.NetworkImageView>
-	        </TableRow>
-
-	        <TableRow
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
+            </LinearLayout>
+            <com.android.volley.toolbox.NetworkImageView
+		        android:id="@+id/pokeItemImg"
+		        android:layout_width="300dp"
+		        android:layout_height="300dp"
+		        android:scaleType="centerInside"
+		        android:layout_gravity="center"
+		        android:background="@drawable/poke_item_box" >
+		    </com.android.volley.toolbox.NetworkImageView>
+		    <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true">
 			    <LinearLayout
-	                android:layout_width="wrap_content"
+	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
-	                android:layout_span="2"
-	                android:orientation="vertical" >
-
+	                android:layout_weight="1"
+	                android:orientation="vertical"
+	                android:background="@drawable/poke_item_box"
+	                android:id="@+id/pokeAttrLayout1"
+	                android:layout_margin="5dp" >
 			        <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -102,10 +108,13 @@
 			            android:layout_gravity="center"  />
 	            </LinearLayout>
 	            <LinearLayout
-	                android:layout_width="wrap_content"
+	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
-	                android:layout_span="2"
-	                android:orientation="vertical" >
+	                android:layout_weight="2"
+	                android:orientation="vertical"
+	                android:background="@drawable/poke_item_box"
+	                android:id="@+id/pokeAttrLayout2"
+	                android:layout_margin="5dp" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -118,10 +127,13 @@
 			            android:layout_gravity="center"  />
 	            </LinearLayout>
 	            <LinearLayout
-	                android:layout_width="wrap_content"
+	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
-	                android:layout_span="2"
-	                android:orientation="vertical" >
+	                android:layout_weight="2"
+	                android:orientation="vertical"
+	                android:background="@drawable/poke_item_box"
+	                android:id="@+id/pokeAttrLayout3"
+	                android:layout_margin="5dp" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -133,15 +145,15 @@
 			            android:layout_height="wrap_content"
 			            android:layout_gravity="center"  />
 	            </LinearLayout>
-	        </TableRow>
-
-	        <TableRow
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
+			</LinearLayout>
+			<LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true">
 	            <LinearLayout
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_span="2"
+	                android:layout_weight="1"
 	                android:orientation="vertical" >
 	                <TextView
 			            android:layout_width="wrap_content"
@@ -157,7 +169,7 @@
 	            <LinearLayout
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_span="2"
+	                android:layout_weight="2"
 	                android:orientation="vertical" >
 	                <TextView
 			            android:layout_width="wrap_content"
@@ -173,7 +185,7 @@
 	            <LinearLayout
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_span="2"
+	                android:layout_weight="2"
 	                android:orientation="vertical" >
 	                <TextView
 			            android:layout_width="wrap_content"
@@ -186,14 +198,15 @@
 			            android:layout_height="wrap_content"
 			            android:layout_gravity="center"  />
 	            </LinearLayout>
-	        </TableRow>
-	        <TableRow
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
+	        </LinearLayout>
+	       	<LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true">
 	            <LinearLayout
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_span="2"
+	                android:layout_weight="1"
 	                android:orientation="vertical" >
 	                <TextView
 			            android:layout_width="wrap_content"
@@ -210,7 +223,7 @@
 	            <LinearLayout
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_span="2"
+	                android:layout_weight="2"
 	                android:orientation="vertical" >
 	                <TextView
 			            android:layout_width="wrap_content"
@@ -227,7 +240,7 @@
 	            <LinearLayout
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_span="2"
+	                android:layout_weight="2"
 	                android:orientation="vertical" >
 	                <TextView
 			            android:layout_width="wrap_content"
@@ -240,53 +253,38 @@
 			            android:layout_height="wrap_content"
 			            android:layout_gravity="center"  />
 	            </LinearLayout>
-	        </TableRow>
-	        <TableRow
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
-	            <LinearLayout
-				      android:orientation="horizontal"
-				      android:layout_width="match_parent"
-				      android:layout_height="15dp"
-				      android:layout_weight="1"
-				      android:background="@drawable/shape"
-				      android:layout_margin="12dp"
-				      android:padding="3dp"
-				      android:layout_span="6">
-				      <TextView
-				          android:id="@+id/pokeMan"
-				          android:layout_width="0dp"
-				          android:layout_height="match_parent"
-				          android:layout_weight="0"
-				          android:background="@drawable/left_corners_radius"
-				          android:gravity="center" />
-				      <TextView
-				          android:id="@+id/pokeWomen"
-				          android:layout_width="0dp"
-				          android:layout_height="match_parent"
-				          android:layout_weight="0"
-				          android:background="@drawable/right_corners_radius"
-				          android:gravity="center" />
-				</LinearLayout>
-	        </TableRow>
-	        <TableRow
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
-	            <TextView
-	                    android:id="@+id/pokeSexTxt"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_gravity="center" 
-			            android:layout_span="6" />
-	        </TableRow>
-	        <TableRow
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
-	            <LinearLayout
+	        </LinearLayout>
+	        <LinearLayout
+			      android:orientation="horizontal"
+			      android:layout_width="match_parent"
+			      android:layout_height="15dp"
+			      android:background="@drawable/shape"
+			      android:layout_margin="12dp"
+			      android:padding="3dp">
+			      <TextView
+			          android:id="@+id/pokeMan"
+			          android:layout_width="0dp"
+			          android:layout_height="match_parent"
+			          android:layout_weight="0"
+			          android:background="@drawable/left_corners_radius"
+			          android:gravity="center" />
+			      <TextView
+			          android:id="@+id/pokeWomen"
+			          android:layout_width="0dp"
+			          android:layout_height="match_parent"
+			          android:layout_weight="0"
+			          android:background="@drawable/right_corners_radius"
+			          android:gravity="center" />
+			</LinearLayout>
+			<TextView
+                android:id="@+id/pokeSexTxt"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center" />
+			<LinearLayout
 				    android:layout_width="match_parent"
 				    android:layout_height="match_parent"
-				    android:orientation="vertical"
-				    android:layout_span="6" >
+				    android:orientation="vertical" >
 				     <TextView
 				         android:id="@+id/pokeBreedTxt"
 				         android:layout_width="match_parent"
@@ -311,19 +309,12 @@
 						    android:layout_gravity="center"
 						    android:layout_weight="1"
 						    android:gravity="center" />
-				
 				     </LinearLayout>
-				
-				</LinearLayout>
-	        </TableRow>
-	       	<TableRow
-	       	    android:layout_width="match_parent"
-	       	    android:layout_height="wrap_content">
-	       	    <LinearLayout
+			</LinearLayout>
+			<LinearLayout
 				    android:layout_width="match_parent"
 				    android:layout_height="wrap_content"
-				    android:orientation="vertical"
-				    android:layout_span="6" >
+				    android:orientation="vertical">
 				    <TextView
 				         android:id="@+id/pokeGetExp"
 				         android:layout_width="match_parent"
@@ -408,8 +399,6 @@
 				             android:gravity="center"/>
 				    </LinearLayout>
 				</LinearLayout>
-	       	</TableRow>
-	    </TableLayout>
-	    
+        </LinearLayout>
 	</ScrollView>
 </RelativeLayout>

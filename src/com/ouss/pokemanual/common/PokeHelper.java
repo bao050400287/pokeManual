@@ -1,5 +1,8 @@
 package com.ouss.pokemanual.common;
 
+import android.content.res.Resources;
+import android.graphics.drawable.GradientDrawable;
+
 import com.ouss.pokemanual.R;
 
 public class PokeHelper {
@@ -85,5 +88,18 @@ public class PokeHelper {
 		}
 		
 		return resultString;
+	}
+	
+	public static void SetBackgroundAndborder(Resources rs,int bgColor, int bdColor, GradientDrawable bgShape) {
+		SetBackgroundAndborder(rs,bgColor, bdColor, bgShape, 2);
+	}
+
+	public static void SetBackgroundAndborder(Resources rs,int bgColor, int bdColor, GradientDrawable bgShape, int strokeWidth) {
+		if (bgColor >0){
+			bgShape.setColor(rs.getColor(bgColor));
+		}
+		if (bdColor > 0){
+			bgShape.setStroke(strokeWidth, rs.getColor(bdColor));
+		}
 	}
 }
