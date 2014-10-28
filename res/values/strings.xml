@@ -14,6 +14,7 @@
 	<string name="pokeFoot">脚印</string>
 	<string name="pokeManualColor">图鉴颜色</string>
 	<string name="pokeCatchPre">捕获度</string>
+	<string name="pokeSexTitleTxt">性别比例</string>
 	<string name="pokeBreed">培育</string>
 	<string name="pokeGetExp">取得基础得点</string>
 	<string name="pokeHP">HP</string>

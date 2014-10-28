@@ -66,10 +66,10 @@
 
 			    <TextView
 			        android:id="@+id/pokeIdTxt"
-			        android:layout_width="wrap_content"
+			        android:layout_width="0dp"
 			        android:layout_height="wrap_content"
 			        android:layout_gravity="center"
-			        android:layout_weight="1"
+			        android:layout_weight="1.5"
 			        android:textAppearance="?android:attr/textAppearanceLarge"
 			        android:background="@drawable/poke_item_box"
 			        android:padding="2dp"
@@ -87,16 +87,11 @@
 		    <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="true"
-                android:id="@+id/pokeAttrLine1">
+                android:baselineAligned="true">
 			    <LinearLayout
-	                android:layout_width="0dp"
-	                android:layout_height="wrap_content"
+	                style="@style/pokeAttrLayoutStyle"
 	                android:layout_weight="1"
-	                android:orientation="vertical"
-	                android:background="@drawable/poke_item_box"
-	                android:id="@+id/pokeAttrLayout1"
-	                android:layout_margin="5dp" >
+	                android:id="@+id/pokeAttrLayout1" >
 			        <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -104,18 +99,11 @@
 			            android:text="@string/pokeType" />
 	                <TextView
 	                    android:id="@+id/pokeStrTypeTxt"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_gravity="center"  />
+			            style="@style/pokeAttrValStyle"   />
 	            </LinearLayout>
 	            <LinearLayout
-	                android:layout_width="0dp"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="2"
-	                android:orientation="vertical"
-	                android:background="@drawable/poke_item_box"
 	                android:id="@+id/pokeAttrLayout2"
-	                android:layout_margin="5dp" >
+	                style="@style/pokeAttrLayoutStyle" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -123,18 +111,11 @@
 			            android:text="@string/pokeClassify" />
 	                <TextView
 	                    android:id="@+id/pokeClassifyTxt"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_gravity="center"  />
+			            style="@style/pokeAttrValStyle" />
 	            </LinearLayout>
 	            <LinearLayout
-	                android:layout_width="0dp"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="2"
-	                android:orientation="vertical"
-	                android:background="@drawable/poke_item_box"
-	                android:id="@+id/pokeAttrLayout3"
-	                android:layout_margin="5dp" >
+	                style="@style/pokeAttrLayoutStyle"
+	                android:id="@+id/pokeAttrLayout3" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -142,9 +123,7 @@
 			            android:text="@string/levelExp" />
 	                <TextView
 	                    android:id="@+id/pokeLevelExpTxt"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_gravity="center"  />
+			            style="@style/pokeAttrValStyle" />
 	            </LinearLayout>
 			</LinearLayout>
 			<LinearLayout 
@@ -152,10 +131,9 @@
                 android:layout_height="wrap_content"
                 android:baselineAligned="true">
 	            <LinearLayout
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
+	                style="@style/pokeAttrLayoutStyle"
 	                android:layout_weight="1"
-	                android:orientation="vertical" >
+	                android:id="@+id/pokeAttrLayout4" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -163,15 +141,11 @@
 			            android:text="@string/pokeHeight" />
 	                <TextView
 	                    android:id="@+id/pokeHeightTxt"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_gravity="center"  />
+			            style="@style/pokeAttrValStyle"  />
 	            </LinearLayout>
 	            <LinearLayout
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="2"
-	                android:orientation="vertical" >
+	                style="@style/pokeAttrLayoutStyle"
+	                android:id="@+id/pokeAttrLayout5" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -179,15 +153,11 @@
 			            android:text="@string/pokeWeight" />
 	                <TextView
 	                    android:id="@+id/pokeWeightTxt"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_gravity="center"  />
+			            style="@style/pokeAttrValStyle"  />
 	            </LinearLayout>
 	            <LinearLayout
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="2"
-	                android:orientation="vertical" >
+	                style="@style/pokeAttrLayoutStyle"
+	                android:id="@+id/pokeAttrLayout6" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -195,9 +165,7 @@
 			            android:text="@string/pokeManualColor" />
 	                <TextView
 	                    android:id="@+id/pokeManualColorTxt"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_gravity="center"  />
+			            style="@style/pokeAttrValStyle"  />
 	            </LinearLayout>
 	        </LinearLayout>
 	       	<LinearLayout 
@@ -205,10 +173,9 @@
                 android:layout_height="wrap_content"
                 android:baselineAligned="true">
 	            <LinearLayout
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
+	                style="@style/pokeAttrLayoutStyle"
 	                android:layout_weight="1"
-	                android:orientation="vertical" >
+	                android:id="@+id/pokeAttrLayout7" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -218,14 +185,14 @@
 				        android:id="@+id/pokeFitImg"
 				        android:layout_width="30dp"
 				        android:layout_height="30dp"
-				        android:layout_gravity="center" >
+				        android:layout_gravity="center"
+				        android:layout_margin="5dp"
+				        android:background="@drawable/shape" >
 				    </com.android.volley.toolbox.NetworkImageView>
 	            </LinearLayout>
 	            <LinearLayout
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="2"
-	                android:orientation="vertical" >
+	                style="@style/pokeAttrLayoutStyle"
+	                android:id="@+id/pokeAttrLayout8" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -235,14 +202,14 @@
 				        android:id="@+id/pokeFootImg"
 				        android:layout_width="16dp"
 				        android:layout_height="16dp"
-				        android:layout_gravity="center" >
+				        android:layout_gravity="center"
+				        android:layout_margin="5dp"
+				        android:background="@drawable/shape" >
 				    </com.android.volley.toolbox.NetworkImageView>
 	            </LinearLayout>
 	            <LinearLayout
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="2"
-	                android:orientation="vertical" >
+	                style="@style/pokeAttrLayoutStyle"
+	                android:id="@+id/pokeAttrLayout9" >
 	                <TextView
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
@@ -250,38 +217,52 @@
 			            android:text="@string/pokeCatchPre" />
 	                <TextView
 	                    android:id="@+id/pokeCatchPreTxt"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_gravity="center"  />
+			            style="@style/pokeAttrValStyle"  />
 	            </LinearLayout>
 	        </LinearLayout>
+
 	        <LinearLayout
-			      android:orientation="horizontal"
-			      android:layout_width="match_parent"
-			      android:layout_height="15dp"
-			      android:background="@drawable/shape"
-			      android:layout_margin="12dp"
-			      android:padding="3dp">
-			      <TextView
-			          android:id="@+id/pokeMan"
-			          android:layout_width="0dp"
-			          android:layout_height="match_parent"
-			          android:layout_weight="0"
-			          android:background="@drawable/left_corners_radius"
-			          android:gravity="center" />
-			      <TextView
-			          android:id="@+id/pokeWomen"
-			          android:layout_width="0dp"
-			          android:layout_height="match_parent"
-			          android:layout_weight="0"
-			          android:background="@drawable/right_corners_radius"
-			          android:gravity="center" />
+	            android:orientation="vertical"
+	            android:id="@+id/pokeAttrLayout10"
+	            android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/poke_item_box">
+	            <TextView
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:text="@string/pokeSexTitleTxt" />
+		        <LinearLayout
+				      android:orientation="horizontal"
+				      android:layout_width="match_parent"
+				      android:layout_height="15dp"
+				      android:background="@drawable/shape"
+				      android:layout_margin="12dp"
+				      android:padding="3dp">
+				      <TextView
+				          android:id="@+id/pokeMan"
+				          android:layout_width="0dp"
+				          android:layout_height="match_parent"
+				          android:layout_weight="0"
+				          android:background="@drawable/left_corners_radius"
+				          android:gravity="center" />
+				      <TextView
+				          android:id="@+id/pokeWomen"
+				          android:layout_width="0dp"
+				          android:layout_height="match_parent"
+				          android:layout_weight="0"
+				          android:background="@drawable/right_corners_radius"
+				          android:gravity="center" />
+				</LinearLayout>
+				<TextView
+	                android:id="@+id/pokeSexTxt"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:background="@drawable/shape"
+		            android:layout_margin="5dp" />
 			</LinearLayout>
-			<TextView
-                android:id="@+id/pokeSexTxt"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="center" />
 			<LinearLayout
 				    android:layout_width="match_parent"
 				    android:layout_height="match_parent"

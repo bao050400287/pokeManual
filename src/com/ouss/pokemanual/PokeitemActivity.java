@@ -1,5 +1,6 @@
 package com.ouss.pokemanual;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import com.ouss.pokemanual.common.PokeHelper;
 import com.ouss.pokemanual.common.PokeHelper.PokeColor;
 import com.ouss.pokemanual.common.SessionManager;
 import com.ouss.pokemanual.html.HtmlHelper;
+import com.ouss.pokemanual.provider.PokeProviderUri;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -93,29 +95,32 @@ public class PokeitemActivity extends Activity {
 	}
 
 	private void setLayoutBG(PokeColor pokeType1, PokeColor pokeType2){
+		List<Integer> layoutList = new ArrayList<Integer>() {{
+			add(R.id.pokeAttrLayout1);
+			add(R.id.pokeAttrLayout2);
+			add(R.id.pokeAttrLayout3);
+			add(R.id.pokeAttrLayout4);
+			add(R.id.pokeAttrLayout5);
+			add(R.id.pokeAttrLayout6);
+			add(R.id.pokeAttrLayout7);
+			add(R.id.pokeAttrLayout8);
+			add(R.id.pokeAttrLayout9);
+			add(R.id.pokeAttrLayout10);
+		}};
+		
+		for (Integer layoutID :layoutList){
+			PokeHelper.SetBackgroundAndborder(
+					rs,
+					pokeType1.getBlColor(),
+					pokeType1.getBdColor(),
+					(GradientDrawable) ((LinearLayout) findViewById(layoutID)).getBackground());
+		}
+		
 		PokeHelper.SetBackgroundAndborder(
 				rs,
 				R.color.pokeBgWhite,
 				pokeType1.getBdColor(),
 				(GradientDrawable) ((LinearLayout) findViewById(R.id.pokeNameLayout)).getBackground(),5);
-		
-		PokeHelper.SetBackgroundAndborder(
-				rs,
-				pokeType1.getBlColor(),
-				pokeType1.getBdColor(),
-				(GradientDrawable) ((LinearLayout) findViewById(R.id.pokeAttrLayout1)).getBackground());
-		
-		PokeHelper.SetBackgroundAndborder(
-				rs,
-				pokeType1.getBlColor(),
-				pokeType1.getBdColor(),
-				(GradientDrawable) ((LinearLayout) findViewById(R.id.pokeAttrLayout2)).getBackground());
-		
-		PokeHelper.SetBackgroundAndborder(
-				rs,
-				pokeType1.getBlColor(),
-				pokeType1.getBdColor(),
-				(GradientDrawable) ((LinearLayout) findViewById(R.id.pokeAttrLayout3)).getBackground());
 	}
 	
 	private void LoadData() {
