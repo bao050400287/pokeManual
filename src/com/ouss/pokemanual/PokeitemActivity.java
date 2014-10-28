@@ -85,7 +85,7 @@ public class PokeitemActivity extends Activity {
 		progressBar = (ProgressBar) findViewById(R.id.progressBarPokeItem);
 		pokeItemLayout = (ScrollView) findViewById(R.id.pokeItemView);
 		pokeItemGrid = (LinearLayout) findViewById(R.id.pokeItemGrid);
-		LruImageCache lruImageCache = LruImageCache.instance();
+		LruImageCache lruImageCache = LruImageCache.instance(context);
 		imageLoader = new ImageLoader(SessionManager.getRequestQueue(),
 				lruImageCache);
 
@@ -95,7 +95,7 @@ public class PokeitemActivity extends Activity {
 	private void setLayoutBG(PokeColor pokeType1, PokeColor pokeType2){
 		PokeHelper.SetBackgroundAndborder(
 				rs,
-				0,
+				R.color.pokeBgWhite,
 				pokeType1.getBdColor(),
 				(GradientDrawable) ((LinearLayout) findViewById(R.id.pokeNameLayout)).getBackground(),5);
 		
@@ -171,9 +171,10 @@ public class PokeitemActivity extends Activity {
 											pokeIdTxt.setText("#" + pokeId);
 											PokeHelper.SetBackgroundAndborder(
 													rs,
-													0,
+													R.color.pokeBgWhite,
 													pokeType1.getBdColor(),
-													(GradientDrawable) pokeIdTxt.getBackground(),5);
+													(GradientDrawable) pokeIdTxt
+															.getBackground(), 5);
 
 											TextView pokeNameJp = (TextView) findViewById(R.id.pokeNameJp);
 											pokeNameJp.setText(pokeSubName);
@@ -211,8 +212,7 @@ public class PokeitemActivity extends Activity {
 											pokeManualColorTxt
 													.setText(pokeInfoList
 															.get(15));
-											if (!pokeInfoList.get(14).equals(
-													"null")
+											if (!pokeInfoList.get(14).equals("null")
 													&& !pokeInfoList.get(14)
 															.equals("")) {
 												pokeManualColorTxt.setTextColor(Color.parseColor(PokeHelper
@@ -290,62 +290,68 @@ public class PokeitemActivity extends Activity {
 											TextView pokeHPExp = (TextView) findViewById(R.id.pokeHPExp);
 											pokeHPExp.setText("HP\n"
 													+ pokeInfoList.get(22));
-											PokeHelper.SetBackgroundAndborder(
-													rs,
-													R.color.pokeHPBG,
-													R.color.pokeHPBD,
-													(GradientDrawable) pokeHPExp
-															.getBackground());
+											PokeHelper
+													.SetBackgroundAndborder(
+															rs,
+															R.color.pokeHPBG,
+															R.color.pokeHPBD,
+															(GradientDrawable) pokeHPExp
+																	.getBackground());
 
 											TextView pokeATExp = (TextView) findViewById(R.id.pokeATExp);
 											pokeATExp.setText("攻击\n"
 													+ pokeInfoList.get(23));
-											PokeHelper.SetBackgroundAndborder(
-													rs,
-													R.color.pokeATBG,
-													R.color.pokeATBD,
-													(GradientDrawable) pokeATExp
-															.getBackground());
+											PokeHelper
+													.SetBackgroundAndborder(
+															rs,
+															R.color.pokeATBG,
+															R.color.pokeATBD,
+															(GradientDrawable) pokeATExp
+																	.getBackground());
 
 											TextView pokeDFExp = (TextView) findViewById(R.id.pokeDFExp);
 											pokeDFExp.setText("防御\n"
 													+ pokeInfoList.get(24));
-											PokeHelper.SetBackgroundAndborder(
-													rs,
-													R.color.pokeDFBG,
-													R.color.pokeDFBD,
-													(GradientDrawable) pokeDFExp
-															.getBackground());
+											PokeHelper
+													.SetBackgroundAndborder(
+															rs,
+															R.color.pokeDFBG,
+															R.color.pokeDFBD,
+															(GradientDrawable) pokeDFExp
+																	.getBackground());
 
 											TextView pokeSAExp = (TextView) findViewById(R.id.pokeSAExp);
 											pokeSAExp.setText("特供\n"
 													+ pokeInfoList.get(25));
-											PokeHelper.SetBackgroundAndborder(
-													rs,
-													R.color.pokeSABG,
-													R.color.pokeSABD,
-													(GradientDrawable) pokeSAExp
-															.getBackground());
+											PokeHelper
+													.SetBackgroundAndborder(
+															rs,
+															R.color.pokeSABG,
+															R.color.pokeSABD,
+															(GradientDrawable) pokeSAExp
+																	.getBackground());
 
 											TextView pokeSDExp = (TextView) findViewById(R.id.pokeSDExp);
 											pokeSDExp.setText("特防\n"
 													+ pokeInfoList.get(26));
-											PokeHelper.SetBackgroundAndborder(
-													rs,
-													R.color.pokeSDBG,
-													R.color.pokeSDBD,
-													(GradientDrawable) pokeSDExp
-															.getBackground());
+											PokeHelper
+													.SetBackgroundAndborder(
+															rs,
+															R.color.pokeSDBG,
+															R.color.pokeSDBD,
+															(GradientDrawable) pokeSDExp
+																	.getBackground());
 
 											TextView pokeSPExp = (TextView) findViewById(R.id.pokeSPExp);
 											pokeSPExp.setText("速度\n"
 													+ pokeInfoList.get(27));
-											PokeHelper.SetBackgroundAndborder(
-													rs,
-													R.color.pokeSPBG,
-													R.color.pokeSPBD,
-													(GradientDrawable) pokeSPExp
-															.getBackground());
+											PokeHelper
+													.SetBackgroundAndborder(
+															rs,
+															R.color.pokeSPBG,
+															R.color.pokeSPBD,
+															(GradientDrawable) pokeSPExp
+																	.getBackground());
 
 											TextView pokeBaseExp = (TextView) findViewById(R.id.pokeBaseExp);
 											pokeBaseExp.setText("基础经验值："
@@ -355,8 +361,8 @@ public class PokeitemActivity extends Activity {
 											pokeBtExp.setText("对战经验值："
 													+ pokeInfoList.get(29));
 
-											setLayoutBG(pokeType1,pokeType2);
-											
+											setLayoutBG(pokeType1, pokeType2);
+
 											SetViewVisibility(
 													pokeType1.getBgColor(),
 													pokeType2.getBdColor());

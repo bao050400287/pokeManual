@@ -89,4 +89,6 @@
     
     <color name="pokeSPBG">#fa92b2</color>
     <color name="pokeSPBD">#a13959</color>
+    
+    <color name="pokeBgWhite">#ffffff</color>
 </resources>

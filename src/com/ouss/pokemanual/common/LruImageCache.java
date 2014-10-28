@@ -1,5 +1,8 @@
 package com.ouss.pokemanual.common;
 
+import java.io.IOException;
+
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
 
@@ -10,6 +13,10 @@ public class LruImageCache implements ImageCache{
 	private static LruCache<String, Bitmap> mMemoryCache;
 	
 	private static LruImageCache lruImageCache;
+	
+	private static FileUtils fileUtils;
+	
+	private static final String WHOLESALE_CONV = ".png";
 	
 	private LruImageCache(){
 		// Get the Max available memory
@@ -23,22 +30,41 @@ public class LruImageCache implements ImageCache{
 		};		
 	}
 	
-	public static LruImageCache instance(){
+	public static LruImageCache instance(Context context){
 		if(lruImageCache == null){
 			lruImageCache = new LruImageCache();
+		}
+		if (fileUtils == null){
+			fileUtils = new FileUtils(context);
 		}
 		return lruImageCache;
 	}
 	
+	private String convertUrlToFileName(String url) {
+        String[] strs = url.split("/");
+        return strs[strs.length - 1] + WHOLESALE_CONV;
+    }
+	
 	@Override
-	public Bitmap getBitmap(String arg0) {		
-		return mMemoryCache.get(arg0);	
+	public Bitmap getBitmap(String url) {		
+		Bitmap result =  mMemoryCache.get(url);	
+		if (result == null) {
+			result = fileUtils.getBitmap(convertUrlToFileName(url));
+		}
+		return result;
 	}
 
 	@Override
-	public void putBitmap(String arg0, Bitmap arg1) {
-		if(getBitmap(arg0) == null){
-			mMemoryCache.put(arg0, arg1);
+	public void putBitmap(String url, Bitmap bitmap) {
+		if(getBitmap(url) == null){
+			mMemoryCache.put(url, bitmap);
+			
+			try {
+				fileUtils.savaBitmap(convertUrlToFileName(url), bitmap);
+			} catch (IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
 		}		
 	}
 
