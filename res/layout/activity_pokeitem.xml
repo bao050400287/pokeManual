@@ -238,7 +238,7 @@
 				      android:layout_width="match_parent"
 				      android:layout_height="15dp"
 				      android:background="@drawable/shape"
-				      android:layout_margin="12dp"
+				      android:layout_margin="5dp"
 				      android:padding="3dp">
 				      <TextView
 				          android:id="@+id/pokeMan"
@@ -266,7 +266,10 @@
 			<LinearLayout
 				    android:layout_width="match_parent"
 				    android:layout_height="match_parent"
-				    android:orientation="vertical" >
+				    android:id="@+id/pokeAttrLayout11"
+				    android:orientation="vertical"
+				    android:background="@drawable/poke_item_box"
+				    android:layout_margin="5dp" >
 				     <TextView
 				         android:id="@+id/pokeBreedTxt"
 				         android:layout_width="match_parent"
@@ -276,7 +279,9 @@
 				         android:text="@string/pokeBreed" />
 				     <LinearLayout
 				         android:layout_width="match_parent"
-				         android:layout_height="wrap_content" >
+				         android:layout_height="wrap_content"
+				         android:background="@drawable/shape"
+				         android:layout_margin="5dp" >
 				         <TextView
 				             android:id="@+id/pokeEggType"
 				             android:layout_width="0dp"
@@ -296,7 +301,9 @@
 			<LinearLayout
 				    android:layout_width="match_parent"
 				    android:layout_height="wrap_content"
-				    android:orientation="vertical">
+				    android:id="@+id/pokeAttrLayout12"
+				    android:orientation="vertical"
+				    android:background="@drawable/poke_item_box">
 				    <TextView
 				         android:id="@+id/pokeGetExp"
 				         android:layout_width="match_parent"
@@ -306,7 +313,9 @@
 				         android:text="@string/pokeGetExp" />
 					<LinearLayout
 				         android:layout_width="match_parent"
-				         android:layout_height="wrap_content" >
+				         android:layout_height="wrap_content"
+				         android:background="@drawable/shape"
+				         android:layout_margin="5dp" >
 				         <TextView
 				             android:id="@+id/pokeHPExp"
 				             android:layout_width="0dp"
@@ -364,7 +373,9 @@
 				    </LinearLayout>
 				    <LinearLayout
 				         android:layout_width="match_parent"
-				         android:layout_height="wrap_content" >
+				         android:layout_height="wrap_content"
+				         android:background="@drawable/shape"
+				         android:layout_margin="5dp" >
 				         <TextView
 				             android:id="@+id/pokeBaseExp"
 				             android:layout_width="0dp"

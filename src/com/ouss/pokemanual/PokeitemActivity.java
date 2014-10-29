@@ -106,6 +106,8 @@ public class PokeitemActivity extends Activity {
 			add(R.id.pokeAttrLayout8);
 			add(R.id.pokeAttrLayout9);
 			add(R.id.pokeAttrLayout10);
+			add(R.id.pokeAttrLayout11);
+			add(R.id.pokeAttrLayout12);
 		}};
 		
 		for (Integer layoutID :layoutList){
