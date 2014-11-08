@@ -126,6 +126,40 @@
 			            style="@style/pokeAttrValStyle" />
 	            </LinearLayout>
 			</LinearLayout>
+			<LinearLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent"
+				    android:id="@+id/pokeAttrLayout13"
+				    android:orientation="vertical"
+				    android:background="@drawable/poke_item_box"
+				    android:layout_margin="5dp" >
+				     <TextView
+				         android:layout_width="match_parent"
+				         android:layout_height="wrap_content"
+				         android:layout_gravity="center"
+				         android:gravity="center"
+				         android:text="@string/pokeCharacter" />
+				     <LinearLayout
+				         android:layout_width="match_parent"
+				         android:layout_height="wrap_content"
+				         android:background="@drawable/shape"
+				         android:layout_margin="5dp" >
+				         <TextView
+				             android:id="@+id/pokeCharacterVal1"
+				             android:layout_width="0dp"
+				             android:layout_height="wrap_content"
+				             android:layout_gravity="center"
+				             android:layout_weight="1"
+				             android:gravity="center"/>
+						<TextView
+						    android:id="@+id/pokeCharacterVal2"
+						    android:layout_width="0dp"
+						    android:layout_height="wrap_content"
+						    android:layout_gravity="center"
+						    android:layout_weight="1"
+						    android:gravity="center" />
+				     </LinearLayout>
+			</LinearLayout>
 			<LinearLayout 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -271,7 +305,6 @@
 				    android:background="@drawable/poke_item_box"
 				    android:layout_margin="5dp" >
 				     <TextView
-				         android:id="@+id/pokeBreedTxt"
 				         android:layout_width="match_parent"
 				         android:layout_height="wrap_content"
 				         android:layout_gravity="center"

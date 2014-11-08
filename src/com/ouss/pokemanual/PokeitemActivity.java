@@ -108,6 +108,7 @@ public class PokeitemActivity extends Activity {
 			add(R.id.pokeAttrLayout10);
 			add(R.id.pokeAttrLayout11);
 			add(R.id.pokeAttrLayout12);
+			add(R.id.pokeAttrLayout13);
 		}};
 		
 		for (Integer layoutID :layoutList){
@@ -206,6 +207,18 @@ public class PokeitemActivity extends Activity {
 											pokeLevelExpTxt
 													.setText(pokeInfoList
 															.get(7));
+											
+											List<String> characterList = HtmlHelper.getPokeCharacter(pokeInfoList.get(6));
+											if (!characterList.isEmpty()){
+												TextView pokeCharacterVal1 = (TextView) findViewById(R.id.pokeCharacterVal1);
+												TextView pokeCharacterVal2 = (TextView) findViewById(R.id.pokeCharacterVal2);
+												
+												String val1 = characterList.get(0);
+												String val2 = characterList.get(1);
+												if (characterList.get(2) != null){
+													val1 += "\n" +characterList.get(2);
+												}
+											}
 
 											TextView pokeHeightTxt = (TextView) findViewById(R.id.pokeHeightTxt);
 											pokeHeightTxt.setText(pokeInfoList

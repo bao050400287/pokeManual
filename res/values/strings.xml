@@ -17,6 +17,7 @@
 	<string name="pokeSexTitleTxt">性别比例</string>
 	<string name="pokeBreed">培育</string>
 	<string name="pokeGetExp">取得基础得点</string>
+	<string name="pokeCharacter">特性</string>
 	<string name="pokeHP">HP</string>
 	<string name="pokeAT">攻击</string>
 	<string name="pokeDF">防御</string>

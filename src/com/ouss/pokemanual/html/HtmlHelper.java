@@ -137,4 +137,23 @@ public class HtmlHelper {
 		}
 		return html;
 	}
+	
+	public static List<String> getPokeCharacter(String cStr) {
+		List<String> matchList = new ArrayList<String>();
+		try {
+			Pattern regex = Pattern.compile("<td.+?>\\s*<a.+?>\\s*(.+?)\\s*</a>\\s*(/<a.+?>\\s*(.+?)\\s*</a>)?[\\s\\S]*?</td>");
+			Matcher regexMatcher = regex.matcher(cStr);
+			while (regexMatcher.find()) {
+				String strCharacter = regexMatcher.group(1);
+				if (regexMatcher.group(3) != null){
+					strCharacter += "/" + regexMatcher.group(3);
+				}
+				matchList.add(strCharacter);
+			} 
+		} catch (PatternSyntaxException ex) {
+			return matchList;
+		}
+		
+		return matchList;
+	}
 }
