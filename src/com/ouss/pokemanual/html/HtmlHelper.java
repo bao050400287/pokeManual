@@ -141,12 +141,15 @@ public class HtmlHelper {
 	public static List<String> getPokeCharacter(String cStr) {
 		List<String> matchList = new ArrayList<String>();
 		try {
-			Pattern regex = Pattern.compile("<td.+?>\\s*<a.+?>\\s*(.+?)\\s*</a>\\s*(/<a.+?>\\s*(.+?)\\s*</a>)?[\\s\\S]*?</td>");
+			Pattern regex = Pattern.compile("<td.+?class=\".+?bl-\\S*\\s*(?<!hide)\\s*bw-1\".*?>\\s*<a.+?>\\s*(.+?)\\s*</a>\\s*(/<a.+?>\\s*(.+?)\\s*</a>|\\s*&#160;»ò\\s*<a.+?>\\s*(.+?)\\s*</a>)?[\\s\\S]*?</td>");
 			Matcher regexMatcher = regex.matcher(cStr);
 			while (regexMatcher.find()) {
 				String strCharacter = regexMatcher.group(1);
 				if (regexMatcher.group(3) != null){
 					strCharacter += "/" + regexMatcher.group(3);
+				}
+				if (regexMatcher.group(4) != null){
+					strCharacter += "/" + regexMatcher.group(4);
 				}
 				matchList.add(strCharacter);
 			} 

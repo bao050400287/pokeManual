@@ -165,6 +165,9 @@ public class PokeitemActivity extends Activity {
 										pokeStrType = pokeInfoList.get(0) + " "
 												+ pokeInfoList.get(1);
 									}
+									
+									final List<String> characterList = HtmlHelper.getPokeCharacter(pokeInfoList.get(6));
+									
 									runable = new Runnable() {
 										@Override
 										public void run() {
@@ -208,16 +211,21 @@ public class PokeitemActivity extends Activity {
 													.setText(pokeInfoList
 															.get(7));
 											
-											List<String> characterList = HtmlHelper.getPokeCharacter(pokeInfoList.get(6));
+											
 											if (!characterList.isEmpty()){
 												TextView pokeCharacterVal1 = (TextView) findViewById(R.id.pokeCharacterVal1);
 												TextView pokeCharacterVal2 = (TextView) findViewById(R.id.pokeCharacterVal2);
 												
 												String val1 = characterList.get(0);
-												String val2 = characterList.get(1);
-												if (characterList.get(2) != null){
+												String val2 = "нч";
+												if (characterList.size() >1){
+													val2 = characterList.get(1);
+												}
+												if (characterList.size() >2){
 													val1 += "\n" +characterList.get(2);
 												}
+												pokeCharacterVal1.setText(val1);
+												pokeCharacterVal2.setText(val2);
 											}
 
 											TextView pokeHeightTxt = (TextView) findViewById(R.id.pokeHeightTxt);
